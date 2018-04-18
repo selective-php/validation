@@ -1,0 +1,36 @@
+{
+  "name": "odan/validation",
+  "description": "Validation classes",
+  "minimum-stability": "stable",
+  "type": "library",
+  "keywords": [
+    "validation"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Odan",
+      "homepage": "https://odan.github.io/",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.0|^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Odan\\Validation\\": "src/Validation/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Odan\\Validation\\Test\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
