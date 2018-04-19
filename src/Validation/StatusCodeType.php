@@ -7,7 +7,7 @@ namespace Odan\Validation;
  *
  * Can be used in combination with AlertMessage.
  */
-class AlertMessageStatus
+class StatusCodeType
 {
     // Bootstrap
     const PRIMARY = 'primary';

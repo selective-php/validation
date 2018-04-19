@@ -5,9 +5,9 @@ namespace Odan\Validation;
 /**
  * StatusMessage.
  *
- * Represents a alert status (success, danger, warning, info) and a status message.
+ * Represents a status code ('5001', 'success', 'danger', etc...) and a status message.
  */
-class AlertMessage
+class StatusCodeMessage
 {
     /**
      * @var string
