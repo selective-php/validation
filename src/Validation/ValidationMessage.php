@@ -3,11 +3,11 @@
 namespace Odan\Validation;
 
 /**
- * ValidationResult.
+ * ValidationMessage.
  *
  * Represents a container for the results of a validation request.
  */
-class ValidationResult
+class ValidationMessage
 {
     /**
      * @var array

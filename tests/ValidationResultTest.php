@@ -2,7 +2,7 @@
 
 namespace Odan\Validation\Test;
 
-use Odan\Validation\ValidationResult;
+use Odan\Validation\ValidationMessage;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,8 +17,8 @@ class ValidationResultTest extends TestCase
      */
     public function testInstance()
     {
-        $actual = new ValidationResult();
-        $this->assertInstanceOf(ValidationResult::class, $actual);
+        $actual = new ValidationMessage();
+        $this->assertInstanceOf(ValidationMessage::class, $actual);
     }
 
     /**
@@ -28,7 +28,7 @@ class ValidationResultTest extends TestCase
      */
     public function testSetSuccessMessage()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $val->setMessage('test');
         $resultText = $val->getMessage();
         $this->assertSame('test', $resultText);
@@ -42,7 +42,7 @@ class ValidationResultTest extends TestCase
      */
     public function testErrors()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $val->addError('error1', 'failed');
         $result = $val->failed();
         $this->assertTrue($result);
@@ -56,7 +56,7 @@ class ValidationResultTest extends TestCase
      */
     public function testErrorsEmptyFieldOne()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $val->addError('', 'failed');
         $result = $val->failed();
         $this->assertTrue($result);
@@ -70,7 +70,7 @@ class ValidationResultTest extends TestCase
      */
     public function testErrorsEmptyFieldTwo()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $val->addError('error1', '');
         $result = $val->failed();
         $this->assertTrue($result);
@@ -84,7 +84,7 @@ class ValidationResultTest extends TestCase
      */
     public function testErrorsEmptyBoth()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $val->addError('', '');
         $result = $val->failed();
         $this->assertTrue($result);
@@ -98,7 +98,7 @@ class ValidationResultTest extends TestCase
      */
     public function testErrorsWithMessage()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $val->addError('email', 'required');
         $result = $val->failed();
         $this->assertTrue($result);
@@ -113,7 +113,7 @@ class ValidationResultTest extends TestCase
      */
     public function testNoErrors()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $result = $val->failed();
         $this->assertFalse($result);
     }
@@ -125,7 +125,7 @@ class ValidationResultTest extends TestCase
      */
     public function testGetMessage()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $val->setMessage('Check your input');
         $this->assertSame('Check your input', $val->getMessage());
 
@@ -140,7 +140,7 @@ class ValidationResultTest extends TestCase
      */
     public function testClear()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $val->setMessage('Errors');
         $val->addError('error', 'error');
         $val->clear();
@@ -155,7 +155,7 @@ class ValidationResultTest extends TestCase
      */
     public function testGetErrors()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $errorFieldName = 'ERROR';
         $errorMessage = 'This is an error!';
         $val->addError($errorFieldName, $errorMessage);
@@ -171,7 +171,7 @@ class ValidationResultTest extends TestCase
      */
     public function testToArray()
     {
-        $val = new ValidationResult();
+        $val = new ValidationMessage();
         $val->setMessage('Errors');
         $val->addError('error1', 'error');
         $val->addError('error2', 'error');
