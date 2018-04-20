@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 /**
  * ValidationResult tests.
  *
- * @coversDefaultClass \Odan\Validation\ValidationResult
+ * @coversDefaultClass \Odan\Validation\ValidationMessage
  */
-class ValidationResultTest extends TestCase
+class ValidationMessageTest extends TestCase
 {
     /**
      * Test instance.
@@ -102,7 +102,7 @@ class ValidationResultTest extends TestCase
         $val->addError('email', 'required');
         $result = $val->failed();
         $this->assertTrue($result);
-        $this->assertEquals(['field' => 'email', 'message' => 'required'], $val->getError());
+        $this->assertEquals(['field' => 'email', 'message' => 'required'], $val->getFirstError());
     }
 
     /**
@@ -174,12 +174,13 @@ class ValidationResultTest extends TestCase
         $val = new ValidationMessage();
         $val->setMessage('Errors');
         $val->addError('error1', 'error');
-        $val->addError('error2', 'error');
+        $val->addError('error2', 'error', '5000');
         $result = $val->toArray();
         $this->assertSame($result['message'], 'Errors');
         $this->assertSame($result['errors'][0]['field'], 'error1');
         $this->assertSame($result['errors'][0]['message'], 'error');
         $this->assertSame($result['errors'][1]['field'], 'error2');
         $this->assertSame($result['errors'][1]['message'], 'error');
+        $this->assertSame($result['errors'][1]['code'], '5000');
     }
 }

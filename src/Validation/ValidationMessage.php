@@ -3,7 +3,7 @@
 namespace Odan\Validation;
 
 /**
- * ValidationMessage.
+ * Validation Message.
  *
  * Represents a container for the results of a validation request.
  */
@@ -24,7 +24,7 @@ class ValidationMessage
      *
      * @return array Errors
      */
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
@@ -34,7 +34,7 @@ class ValidationMessage
      *
      * @return mixed Error
      */
-    public function getError()
+    public function getFirstError()
     {
         return reset($this->errors);
     }
@@ -44,7 +44,7 @@ class ValidationMessage
      *
      * @return string|null
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
@@ -54,13 +54,11 @@ class ValidationMessage
      *
      * @param string $message The default success message
      *
-     * @return self self
+     * @return void
      */
     public function setMessage(string $message)
     {
         $this->message = $message;
-
-        return $this;
     }
 
     /**
@@ -86,29 +84,31 @@ class ValidationMessage
     /**
      * Clear errors and message.
      *
-     * @return self
+     * @return void
      */
     public function clear()
     {
         $this->message = null;
         $this->errors = [];
-
-        return $this;
     }
 
     /**
      * Add error message.
      *
-     * @param string $field Field name
-     * @param string $message Message
+     * @param string $field the field name containing the error
+     * @param string $message A String providing a short description of the error.
+     * The message SHOULD be limited to a concise single sentence.
+     * @param string|null $code A numeric or alphanumeric value that indicates the error type that occurred. (optional)
      *
-     * @return self
+     * @return void
      */
-    public function addError(string $field, string $message)
+    public function addError(string $field, string $message, string $code = null)
     {
-        $this->errors[] = ['field' => $field, 'message' => $message];
-
-        return $this;
+        if ($code === null) {
+            $this->errors[] = ['field' => $field, 'message' => $message];
+        } else {
+            $this->errors[] = ['field' => $field, 'message' => $message, 'code' => $code];
+        }
     }
 
     /**

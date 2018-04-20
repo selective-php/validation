@@ -3,7 +3,7 @@
 namespace Odan\Validation;
 
 /**
- * SuccessMessage.
+ * Success Message.
  *
  * Represents a boolean success status and a success message.
  */
@@ -32,16 +32,17 @@ class SuccessMessage
     }
 
     /**
-     * Get message.
+     * Set values.
      *
      * @param bool $success
      * @param string $message
      *
-     * @return self
+     * @return void
      */
-    public function with(bool $success, string $message): self
+    public function set(bool $success, string $message)
     {
-        return new self($success, $message);
+        $this->success = $success;
+        $this->message = $message;
     }
 
     /**

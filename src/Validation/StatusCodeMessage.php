@@ -3,7 +3,7 @@
 namespace Odan\Validation;
 
 /**
- * StatusMessage.
+ * Status Code Message.
  *
  * Represents a status code ('5001', 'success', 'danger', etc...) and a status message.
  */
@@ -12,7 +12,7 @@ class StatusCodeMessage
     /**
      * @var string
      */
-    protected $status;
+    protected $code;
 
     /**
      * @var string
@@ -22,26 +22,27 @@ class StatusCodeMessage
     /**
      * Constructor.
      *
-     * @param string $status Alert status
+     * @param string $code Alert status
      * @param string $message The message
      */
-    public function __construct(string $status, string $message)
+    public function __construct(string $code, string $message)
     {
-        $this->status = $status;
+        $this->code = $code;
         $this->message = $message;
     }
 
     /**
-     * Clone object.
+     * Set values.
      *
-     * @param string $status Status code
+     * @param string $code Status code
      * @param string $message The message
      *
-     * @return self
+     * @return void
      */
-    public function with(string $status, string $message): self
+    public function set(string $code, string $message)
     {
-        return new self($status, $message);
+        $this->code = $code;
+        $this->message = $message;
     }
 
     /**
@@ -57,11 +58,11 @@ class StatusCodeMessage
     /**
      * Returns the status code.
      *
-     * @return string The status
+     * @return string The status code
      */
     public function status(): string
     {
-        return $this->status;
+        return $this->code;
     }
 
     /**
