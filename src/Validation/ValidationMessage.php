@@ -3,112 +3,69 @@
 namespace Odan\Validation;
 
 /**
- * Validation Message.
+ * Message.
  *
- * Represents a container for the results of a validation request.
+ * Represents a status and a message.
  */
 class ValidationMessage
 {
     /**
-     * @var array
+     * @var string
      */
-    protected $errors = [];
+    protected $field;
+
+    /**
+     * @var string
+     */
+    protected $message;
 
     /**
      * @var string|null
      */
-    protected $message = null;
+    protected $code = null;
 
     /**
-     * Get all errors.
+     * Constructor.
      *
-     * @return array Errors
+     * @param string $field The field name
+     * @param string $message The Message
+     * @param string|null $code The error code (optional)
      */
-    public function getErrors(): array
+    public function __construct(string $field, string $message, string $code = null)
     {
-        return $this->errors;
+        $this->field = $field;
+        $this->message = $message;
+        $this->code = $code;
     }
 
     /**
-     * Get first error.
+     * Returns the message.
      *
-     * @return mixed Error
+     * @return string
      */
-    public function getFirstError()
-    {
-        return reset($this->errors);
-    }
-
-    /**
-     * Get message.
-     *
-     * @return string|null
-     */
-    public function getMessage(): ?string
+    public function getMessage(): string
     {
         return $this->message;
     }
 
     /**
-     * Set the default success message.
+     * Returns the field name.
      *
-     * @param string $message The default success message
-     *
-     * @return void
+     * @return string The field name
      */
-    public function setMessage(string $message)
+    public function getField(): string
     {
-        $this->message = $message;
+        return $this->field;
     }
 
     /**
-     * Returns the success of the validation.
+     * Returns the validation status code.
      *
-     * @return bool true if validation was successful; otherwise, false
+     * @return string|null The validation status code
      */
-    public function success(): bool
+    public function getCode(): ?string
     {
-        return empty($this->errors);
-    }
-
-    /**
-     * Get validation failed status.
-     *
-     * @return bool Status
-     */
-    public function failed(): bool
-    {
-        return !empty($this->errors);
-    }
-
-    /**
-     * Clear errors and message.
-     *
-     * @return void
-     */
-    public function clear()
-    {
-        $this->message = null;
-        $this->errors = [];
-    }
-
-    /**
-     * Add error message.
-     *
-     * @param string $field the field name containing the error
-     * @param string $message A String providing a short description of the error.
-     * The message SHOULD be limited to a concise single sentence.
-     * @param string|null $code A numeric or alphanumeric value that indicates the error type that occurred. (optional)
-     *
-     * @return void
-     */
-    public function addError(string $field, string $message, string $code = null)
-    {
-        if ($code === null) {
-            $this->errors[] = ['field' => $field, 'message' => $message];
-        } else {
-            $this->errors[] = ['field' => $field, 'message' => $message, 'code' => $code];
-        }
+        return $this->code;
     }
 
     /**
@@ -119,16 +76,13 @@ class ValidationMessage
     public function toArray(): array
     {
         $result = [
-            'success' => $this->success(),
+            'field' => $this->getField(),
+            'message' => $this->getMessage(),
         ];
 
-        $message = $this->getMessage();
-        if ($message !== null) {
-            $result['message'] = $message;
-        }
-
-        if ($errors = $this->getErrors()) {
-            $result['errors'] = $errors;
+        $code = $this->getCode();
+        if ($code !== null) {
+            $result['code'] = $code;
         }
 
         return $result;
