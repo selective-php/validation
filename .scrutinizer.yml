@@ -24,7 +24,8 @@ build:
         rabbitmq: false
     dependencies:
             before:
-                 - php cli.php install --environment travis
+                 - composer self-update
+                 - composer update --no-interaction --prefer-dist
     tests:
         before:
             -
