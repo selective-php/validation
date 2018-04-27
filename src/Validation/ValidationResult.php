@@ -14,9 +14,9 @@ namespace Odan\Validation;
 class ValidationResult
 {
     /**
-     * @var bool|null Success
+     * @var bool Success
      */
-    protected $success = null;
+    protected $success = true;
 
     /**
      * @var array
@@ -73,13 +73,27 @@ class ValidationResult
     }
 
     /**
+     * Set the success status.
+     *
+     * @param bool $success The success status
+     *
+     * @return $this self
+     */
+    public function setSuccess(bool $success)
+    {
+        $this->success = $success;
+
+        return $this;
+    }
+
+    /**
      * Returns the success of the validation.
      *
      * @return bool true if validation was successful; otherwise, false
      */
     public function isSuccess(): bool
     {
-        return $this->success === null ? empty($this->errors) : $this->success;
+        return $this->success;
     }
 
     /**
@@ -101,7 +115,7 @@ class ValidationResult
     {
         $this->message = null;
         $this->errors = [];
-        $this->success = null;
+        $this->success = true;
 
         return $this;
     }
@@ -110,14 +124,15 @@ class ValidationResult
      * Add error message.
      *
      * @param string $field the field name containing the error
+     * @param string $message a String providing a short description of the error.
      * The message SHOULD be limited to a concise single sentence
-     * @param string $message a String providing a short description of the error
      * @param string|null $code A numeric or alphanumeric value that indicates the error type that occurred. (optional)
      *
      * @return $this
      */
     public function addError(string $field, string $message, string $code = null)
     {
+        $this->setSuccess(false);
         $this->errors[] = new ValidationMessage($field, $message, $code);
 
         return $this;
