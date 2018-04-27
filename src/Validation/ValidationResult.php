@@ -31,7 +31,7 @@ class ValidationResult
     /**
      * Get all errors.
      *
-     * @return ValidationMessage[] Errors
+     * @return ErrorMessage[] Errors
      */
     public function getErrors(): array
     {
@@ -41,7 +41,7 @@ class ValidationResult
     /**
      * Get first error.
      *
-     * @return ValidationMessage|null Error message
+     * @return ErrorMessage|null Error message
      */
     public function getFirstError()
     {
@@ -133,7 +133,26 @@ class ValidationResult
     public function addError(string $field, string $message, string $code = null)
     {
         $this->setSuccess(false);
-        $this->errors[] = new ValidationMessage($field, $message, $code);
+
+        $message = new ErrorMessage($message);
+        $message->setField($field)->setCode($code);
+
+        $this->errors[] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Add a message object.
+     *
+     * @param ErrorMessage $errorMessage The message object
+     *
+     * @return $this
+     */
+    public function addErrorMessage(ErrorMessage $errorMessage)
+    {
+        $this->setSuccess(false);
+        $this->errors[] = $errorMessage;
 
         return $this;
     }

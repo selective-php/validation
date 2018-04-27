@@ -7,10 +7,10 @@ namespace Odan\Validation;
  *
  * Represents a status and a message.
  */
-class ValidationMessage
+class ErrorMessage
 {
     /**
-     * @var string
+     * @var string|null
      */
     protected $field;
 
@@ -27,15 +27,11 @@ class ValidationMessage
     /**
      * Constructor.
      *
-     * @param string $field The field name
      * @param string $message The Message
-     * @param string|null $code The error code (optional)
      */
-    public function __construct(string $field, string $message, string $code = null)
+    public function __construct(string $message)
     {
-        $this->field = $field;
         $this->message = $message;
-        $this->code = $code;
     }
 
     /**
@@ -49,13 +45,41 @@ class ValidationMessage
     }
 
     /**
+     * Set the field name.
+     *
+     * @param string $field The field name
+     *
+     * @return $this self
+     */
+    public function setField(string $field)
+    {
+        $this->field = $field;
+
+        return $this;
+    }
+
+    /**
      * Returns the field name.
      *
-     * @return string The field name
+     * @return string|null The field name
      */
-    public function getField(): string
+    public function getField()
     {
         return $this->field;
+    }
+
+    /**
+     * Set the field name.
+     *
+     * @param mixed $code The error code
+     *
+     * @return $this self
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
     }
 
     /**
@@ -76,9 +100,13 @@ class ValidationMessage
     public function toArray(): array
     {
         $result = [
-            'field' => $this->getField(),
             'message' => $this->getMessage(),
         ];
+
+        $field = $this->getField();
+        if ($field !== null) {
+            $result['field'] = $field;
+        }
 
         $code = $this->getCode();
         if ($code !== null) {

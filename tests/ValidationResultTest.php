@@ -2,6 +2,7 @@
 
 namespace Odan\Validation\Test;
 
+use Odan\Validation\ErrorMessage;
 use Odan\Validation\ValidationResult;
 use PHPUnit\Framework\TestCase;
 
@@ -94,6 +95,27 @@ class ValidationResultTest extends TestCase
     }
 
     /**
+     * Tests addError and success functions.
+     * Tests addError function with null for the second parameter.
+     *
+     * @return void
+     */
+    public function testAddErrorMessage()
+    {
+        $val = new ValidationResult();
+        $message = new ErrorMessage('required');
+        $message->setField('email')->setCode('5000');
+
+        $val->addErrorMessage($message);
+        $result = $val->isFailed();
+        $this->assertTrue($result);
+
+        $expected = ['field' => 'email', 'message' => 'required',  'code' => '5000'];
+
+        $this->assertEquals($expected, $val->getFirstError()->toArray());
+    }
+
+    /**
      * Tests success function.
      * Tests for no errors.
      *
@@ -130,7 +152,7 @@ class ValidationResultTest extends TestCase
     {
         $val = new ValidationResult();
         $val->setMessage('Errors');
-        $val->addError('error', 'error');
+        $val->addError('email', 'required');
         $val->clear();
         $result = $val->isFailed();
         $this->assertFalse($result);
