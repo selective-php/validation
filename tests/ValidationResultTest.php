@@ -44,7 +44,7 @@ class ValidationResultTest extends TestCase
     {
         $val = new ValidationResult();
         $val->addError('error1', 'failed');
-        $result = $val->failed();
+        $result = $val->isFailed();
         $this->assertTrue($result);
     }
 
@@ -58,7 +58,7 @@ class ValidationResultTest extends TestCase
     {
         $val = new ValidationResult();
         $val->addError('', 'invalid');
-        $result = $val->failed();
+        $result = $val->isFailed();
         $this->assertTrue($result);
     }
 
@@ -72,7 +72,7 @@ class ValidationResultTest extends TestCase
     {
         $val = new ValidationResult();
         $val->addError('field', 'message');
-        $result = $val->failed();
+        $result = $val->isFailed();
         $this->assertTrue($result);
     }
 
@@ -86,7 +86,7 @@ class ValidationResultTest extends TestCase
     {
         $val = new ValidationResult();
         $val->addError('email', 'required', '5000');
-        $result = $val->failed();
+        $result = $val->isFailed();
         $this->assertTrue($result);
         $expected = ['field' => 'email', 'message' => 'required',  'code' => '5000'];
 
@@ -102,7 +102,7 @@ class ValidationResultTest extends TestCase
     public function testNoErrors()
     {
         $val = new ValidationResult();
-        $result = $val->failed();
+        $result = $val->isFailed();
         $this->assertFalse($result);
     }
 
@@ -132,7 +132,7 @@ class ValidationResultTest extends TestCase
         $val->setMessage('Errors');
         $val->addError('error', 'error');
         $val->clear();
-        $result = $val->failed();
+        $result = $val->isFailed();
         $this->assertFalse($result);
     }
 

@@ -14,6 +14,11 @@ namespace Odan\Validation;
 class ValidationResult
 {
     /**
+     * @var bool|null Success
+     */
+    protected $success = null;
+
+    /**
      * @var array
      */
     protected $errors = [];
@@ -36,7 +41,7 @@ class ValidationResult
     /**
      * Get first error.
      *
-     * @return ValidationMessage|null Error
+     * @return ValidationMessage|null Error message
      */
     public function getFirstError()
     {
@@ -58,11 +63,13 @@ class ValidationResult
      *
      * @param string $message The default success message
      *
-     * @return void
+     * @return $this
      */
     public function setMessage(string $message)
     {
         $this->message = $message;
+
+        return $this;
     }
 
     /**
@@ -70,9 +77,9 @@ class ValidationResult
      *
      * @return bool true if validation was successful; otherwise, false
      */
-    public function success(): bool
+    public function isSuccess(): bool
     {
-        return empty($this->errors);
+        return $this->success === null ? empty($this->errors) : $this->success;
     }
 
     /**
@@ -80,20 +87,23 @@ class ValidationResult
      *
      * @return bool Status
      */
-    public function failed(): bool
+    public function isFailed(): bool
     {
-        return !empty($this->errors);
+        return !$this->isSuccess();
     }
 
     /**
      * Clear errors and message.
      *
-     * @return void
+     * @return $this
      */
     public function clear()
     {
         $this->message = null;
         $this->errors = [];
+        $this->success = null;
+
+        return $this;
     }
 
     /**
@@ -104,11 +114,13 @@ class ValidationResult
      * @param string $message a String providing a short description of the error
      * @param string|null $code A numeric or alphanumeric value that indicates the error type that occurred. (optional)
      *
-     * @return void
+     * @return $this
      */
     public function addError(string $field, string $message, string $code = null)
     {
         $this->errors[] = new ValidationMessage($field, $message, $code);
+
+        return $this;
     }
 
     /**
@@ -119,7 +131,7 @@ class ValidationResult
     public function toArray(): array
     {
         $result = [
-            'success' => $this->success(),
+            'success' => $this->isSuccess(),
         ];
 
         $message = $this->getMessage();
