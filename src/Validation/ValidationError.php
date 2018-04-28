@@ -7,7 +7,7 @@ namespace Odan\Validation;
  *
  * Represents a status and a message.
  */
-class ErrorMessage
+class ValidationError
 {
     /**
      * @var string|null

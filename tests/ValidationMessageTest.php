@@ -2,25 +2,25 @@
 
 namespace Odan\Validation\Test;
 
-use Odan\Validation\ErrorMessage;
+use Odan\Validation\ValidationError;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests.
  *
- * @coversDefaultClass \Odan\Validation\ErrorMessage
+ * @coversDefaultClass \Odan\Validation\ValidationError
  */
 class ValidationMessageTest extends TestCase
 {
     public function testConstruct()
     {
-        $message = new ErrorMessage('');
-        $this->assertInstanceOf(ErrorMessage::class, $message);
+        $message = new ValidationError('');
+        $this->assertInstanceOf(ValidationError::class, $message);
     }
 
     public function testWithField()
     {
-        $message = new ErrorMessage('required');
+        $message = new ValidationError('required');
         $message->setField('email');
 
         $this->assertEquals([
@@ -31,7 +31,7 @@ class ValidationMessageTest extends TestCase
 
     public function testWithFieldAndCode()
     {
-        $message = new ErrorMessage('invalid');
+        $message = new ValidationError('invalid');
         $message->setField('email');
         $message->setCode('5000');
 

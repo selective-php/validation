@@ -2,6 +2,8 @@
 
 namespace Odan\Validation;
 
+use JsonSerializable;
+
 /**
  * Validation Result.
  *
@@ -11,13 +13,8 @@ namespace Odan\Validation;
  *
  * https://martinfowler.com/articles/replaceThrowWithNotification.html
  */
-class ValidationResult
+class ValidationResult implements JsonSerializable
 {
-    /**
-     * @var bool Success
-     */
-    protected $success = true;
-
     /**
      * @var array
      */
@@ -31,7 +28,7 @@ class ValidationResult
     /**
      * Get all errors.
      *
-     * @return ErrorMessage[] Errors
+     * @return ValidationError[] Errors
      */
     public function getErrors(): array
     {
@@ -41,7 +38,7 @@ class ValidationResult
     /**
      * Get first error.
      *
-     * @return ErrorMessage|null Error message
+     * @return ValidationError|null Error message
      */
     public function getFirstError()
     {
@@ -73,27 +70,13 @@ class ValidationResult
     }
 
     /**
-     * Set the success status.
-     *
-     * @param bool $success The success status
-     *
-     * @return $this self
-     */
-    public function setSuccess(bool $success)
-    {
-        $this->success = $success;
-
-        return $this;
-    }
-
-    /**
      * Returns the success of the validation.
      *
      * @return bool true if validation was successful; otherwise, false
      */
     public function isSuccess(): bool
     {
-        return $this->success;
+        return empty($this->errors);
     }
 
     /**
@@ -115,7 +98,6 @@ class ValidationResult
     {
         $this->message = null;
         $this->errors = [];
-        $this->success = true;
 
         return $this;
     }
@@ -132,9 +114,7 @@ class ValidationResult
      */
     public function addError(string $field, string $message, string $code = null)
     {
-        $this->setSuccess(false);
-
-        $message = new ErrorMessage($message);
+        $message = new ValidationError($message);
         $message->setField($field)->setCode($code);
 
         $this->errors[] = $message;
@@ -143,16 +123,15 @@ class ValidationResult
     }
 
     /**
-     * Add a message object.
+     * Add a validation error object.
      *
-     * @param ErrorMessage $errorMessage The message object
+     * @param ValidationError $validationError The error object
      *
      * @return $this
      */
-    public function addErrorMessage(ErrorMessage $errorMessage)
+    public function addValidationError(ValidationError $validationError)
     {
-        $this->setSuccess(false);
-        $this->errors[] = $errorMessage;
+        $this->errors[] = $validationError;
 
         return $this;
     }
@@ -181,5 +160,15 @@ class ValidationResult
         }
 
         return $result;
+    }
+
+    /**
+     * Serializes the object to a value that can be serialized natively by json_encode().
+     *
+     * @return array|mixed
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

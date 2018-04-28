@@ -5,7 +5,7 @@ namespace Odan\Validation\Test;
 use Odan\Validation\ServiceResult;
 
 /**
- * ValidationResult tests.
+ * Tests.
  *
  * @coversDefaultClass \Odan\Validation\ServiceResultTest
  */
