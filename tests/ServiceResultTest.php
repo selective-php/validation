@@ -44,11 +44,11 @@ class ServiceResultTest extends ValidationResultTest
     public function testResult()
     {
         $val = new ServiceResult();
-        $actual = $val->getResult();
+        $actual = $val->getData();
         $this->assertSame(null, $actual);
 
-        $val->setResult(['first_name' => 'max']);
-        $resultText = $val->getResult();
+        $val->setData(['first_name' => 'max']);
+        $resultText = $val->getData();
         $this->assertSame(['first_name' => 'max'], $resultText);
     }
 
@@ -67,8 +67,8 @@ class ServiceResultTest extends ValidationResultTest
         $actual = $val->toArray();
         $this->assertSame(['success' => true, 'code' => '500'], $actual);
 
-        $val->setResult([]);
+        $val->setData(['id' => 1]);
         $actual = $val->toArray();
-        $this->assertSame(['success' => true, 'code' => '500', 'result' => []], $actual);
+        $this->assertSame(['success' => true, 'code' => '500', 'data' => ['id' => 1]], $actual);
     }
 }

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @coversDefaultClass \Odan\Validation\ValidationError
  */
-class ValidationMessageTest extends TestCase
+class ValidationErrorTest extends TestCase
 {
     public function testConstruct()
     {

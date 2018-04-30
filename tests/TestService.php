@@ -38,7 +38,7 @@ class TestService
         $result->setSuccess(true);
         $result->setMessage('Successfully');
         $result->setCode(0);
-        $result->setResult(['foo' => 'value']);
+        $result->setData(['foo' => 'value']);
 
         return $result;
     }

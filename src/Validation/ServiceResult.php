@@ -27,7 +27,7 @@ class ServiceResult implements JsonSerializable
     /**
      * @var mixed|null
      */
-    protected $result;
+    protected $data;
 
     /**
      * Get message.
@@ -102,13 +102,13 @@ class ServiceResult implements JsonSerializable
     }
 
     /**
-     * Returns the value that was being bound during model binding.
+     * Returns the the document’s "primary data".
      *
      * @return mixed The result data
      */
-    public function getResult()
+    public function getData()
     {
-        return $this->result;
+        return $this->data;
     }
 
     /**
@@ -118,9 +118,9 @@ class ServiceResult implements JsonSerializable
      *
      * @return $this self
      */
-    public function setResult($result)
+    public function setData($result)
     {
-        $this->result = $result;
+        $this->data = $result;
 
         return $this;
     }
@@ -146,9 +146,9 @@ class ServiceResult implements JsonSerializable
             $data['code'] = $code;
         }
 
-        $result = $this->getResult();
+        $result = $this->getData();
         if ($result !== null) {
-            $data['result'] = $this->getResult();
+            $data['data'] = $this->getData();
         }
 
         return $data;
