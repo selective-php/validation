@@ -26,6 +26,11 @@ class ValidationResult implements JsonSerializable
     protected $message = null;
 
     /**
+     * @var string|null
+     */
+    protected $code = null;
+
+    /**
      * Get all errors.
      *
      * @return ValidationError[] Errors
@@ -60,13 +65,33 @@ class ValidationResult implements JsonSerializable
      *
      * @param string $message The default success message
      *
-     * @return $this
+     * @return void
      */
     public function setMessage(string $message)
     {
         $this->message = $message;
+    }
 
-        return $this;
+    /**
+     * Get the error code.
+     *
+     * @return string|null
+     */
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set the error code.
+     *
+     * @param string $message The error code
+     *
+     * @return void
+     */
+    public function setCode(string $message)
+    {
+        $this->code = $message;
     }
 
     /**
@@ -92,14 +117,13 @@ class ValidationResult implements JsonSerializable
     /**
      * Clear errors and message.
      *
-     * @return $this
+     * @return void
      */
     public function clear()
     {
+        $this->code = null;
         $this->message = null;
         $this->errors = [];
-
-        return $this;
     }
 
     /**
@@ -110,7 +134,7 @@ class ValidationResult implements JsonSerializable
      * The message SHOULD be limited to a concise single sentence
      * @param string|null $code A numeric or alphanumeric value that indicates the error type that occurred. (optional)
      *
-     * @return $this
+     * @return void
      */
     public function addError(string $field, string $message, string $code = null)
     {
@@ -118,8 +142,6 @@ class ValidationResult implements JsonSerializable
         $message->setField($field)->setCode($code);
 
         $this->errors[] = $message;
-
-        return $this;
     }
 
     /**
@@ -127,13 +149,11 @@ class ValidationResult implements JsonSerializable
      *
      * @param ValidationError $validationError The error object
      *
-     * @return $this
+     * @return void
      */
     public function addValidationError(ValidationError $validationError)
     {
         $this->errors[] = $validationError;
-
-        return $this;
     }
 
     /**
@@ -143,9 +163,12 @@ class ValidationResult implements JsonSerializable
      */
     public function toArray(): array
     {
-        $result = [
-            'success' => $this->isSuccess(),
-        ];
+        $result = [];
+
+        $code = $this->getCode();
+        if ($code !== null) {
+            $result['code'] = $code;
+        }
 
         $message = $this->getMessage();
         if ($message !== null) {

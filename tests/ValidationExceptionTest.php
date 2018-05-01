@@ -38,7 +38,7 @@ class ValidationExceptionTest extends TestCase
             $json = $this->withStatus(422)->withJson($validation);
         }
 
-        $this->assertSame('{"success":false,"message":"Please check your input","errors":[{"message":"invalid","field":"id"}]}', $json);
+        $this->assertSame('{"message":"Please check your input","errors":[{"message":"invalid","field":"id"}]}', $json);
     }
 
     /**
