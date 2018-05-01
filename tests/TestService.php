@@ -2,7 +2,6 @@
 
 namespace Odan\Validation\Test;
 
-use Odan\Validation\ServiceResult;
 use Odan\Validation\ValidationException;
 use Odan\Validation\ValidationResult;
 
@@ -18,9 +17,9 @@ class TestService
      *
      * @throws ValidationException
      *
-     * @return ServiceResult Result data
+     * @return array Result data
      */
-    public function process(int $id): ServiceResult
+    public function process(int $id): array
     {
         $validation = new ValidationResult();
 
@@ -34,11 +33,11 @@ class TestService
             throw new ValidationException($validation);
         }
 
-        $result = new ServiceResult();
-        $result->setSuccess(true);
-        $result->setMessage('Successfully');
-        $result->setCode(0);
-        $result->setData(['foo' => 'value']);
+        $result = [];
+        $result['success'] = true;
+        $result['message'] = 'Successfully';
+        $result['code'] = 0;
+        $result['data']['foo'] = 'value';
 
         return $result;
     }
