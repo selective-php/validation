@@ -101,7 +101,7 @@ class ValidationResult implements JsonSerializable
      */
     public function isSuccess(): bool
     {
-        return empty($this->errors);
+        return empty($this->errors) && $this->message === null && $this->code === null;
     }
 
     /**
