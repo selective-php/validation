@@ -183,6 +183,7 @@ class ValidationResultTest extends TestCase
     public function testToArray()
     {
         $val = new ValidationResult();
+        $val->setCode('error_code');
         $val->setMessage('Errors');
         $val->addError('error1', 'error');
         $val->addError('error2', 'error', '5000');
