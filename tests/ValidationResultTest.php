@@ -188,6 +188,7 @@ class ValidationResultTest extends TestCase
         $val->addError('error1', 'error');
         $val->addError('error2', 'error', '5000');
         $result = $val->toArray();
+        $this->assertSame($result['code'], 'error_code');
         $this->assertSame($result['message'], 'Errors');
         $this->assertSame($result['errors'][0]['field'], 'error1');
         $this->assertSame($result['errors'][0]['message'], 'error');
