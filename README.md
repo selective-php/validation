@@ -29,7 +29,7 @@ $validation = new ValidationResult();
 
 // Validate username
 if (empty($data['username'])) {
-    $validation->addError('email', 'Input required');
+    $validation->addError('username', 'Input required');
 }
 
 // Validate password
@@ -40,7 +40,7 @@ if (empty($data['password'])) {
 // Check validation result
 if ($validation->isFailed()) {
     // Global error message
-    $validation->setMessage('Please check you input');
+    $validation->setMessage('Please check your input');
 
     // Trigger error response (see validation middleware)
     throw new ValidationException($validation);
