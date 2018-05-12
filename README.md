@@ -17,9 +17,50 @@
 composer require odan/validation
 ```
 
-## Documentation
+## Usage
 
-This package is documented [here](./docs/readme.md).
+Login example:
+
+```php
+// Get all POST values
+$data = $request->getParsedBody();
+
+$validation = new ValidationResult();
+
+// Validate username
+if (empty($data['username'])) {
+    $validation->addError('email', 'Input required');
+}
+
+// Validate password
+if (empty($data['password'])) {
+    $validation->addError('password', 'Input required');
+}
+
+// Check validation result
+if ($validation->isFailed()) {
+    // Global error message
+    $validation->setMessage('Please check you input');
+
+    // Trigger error response (see validation middleware)
+    throw new ValidationException($validation);
+}
+```
+
+### Slim Middleware
+
+This validation middleware catches the `ValidationException` exception and converts it into a nice JSON response:
+
+```php
+// Validation middleware
+$app->add(function (Request $request, Response $response, $next) {
+    try{
+        return $next($request, $response);
+    } catch (ValidationException $exception) {
+        return $response->withStatus(422)->withJson(['error' => $exception->getValidation()->toArray()]);
+    }
+});
+```
 
 ## License
 
