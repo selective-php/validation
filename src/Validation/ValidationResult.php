@@ -85,13 +85,13 @@ class ValidationResult implements JsonSerializable
     /**
      * Set the error code.
      *
-     * @param string $message The error code
+     * @param string $code The error code
      *
      * @return void
      */
-    public function setCode(string $message)
+    public function setCode(string $code)
     {
-        $this->code = $message;
+        $this->code = $code;
     }
 
     /**
