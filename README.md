@@ -1,11 +1,11 @@
 # Validation
 
-[![Latest Version on Packagist](https://img.shields.io/github/release/odan/validation.svg)](https://github.com/odan/validation/releases)
+[![Latest Version on Packagist](https://img.shields.io/github/release/selective-php/validation.svg)](https://packagist.org/packages/selective/validation)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
-[![Build Status](https://travis-ci.org/odan/validation.svg?branch=master)](https://travis-ci.org/odan/validation)
-[![Quality Score](https://scrutinizer-ci.com/g/odan/validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/odan/validation/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/odan/validation.svg)](https://packagist.org/packages/odan/validation/stats)
-
+[![Build Status](https://travis-ci.org/selective-php/validation.svg?branch=master)](https://travis-ci.org/selective-php/validation)
+[![Coverage Status](https://scrutinizer-ci.com/g/selective-php/validation/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/selective-php/validation/code-structure)
+[![Quality Score](https://scrutinizer-ci.com/g/selective-php/validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/selective-php/validation/?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/selective/validation.svg)](https://packagist.org/packages/selective/validation/stats)
 
 ## Requirements
 
@@ -14,7 +14,7 @@
 ## Installation
 
 ```shell
-composer require odan/validation
+composer require selective/validation
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ composer require odan/validation
 Login example:
 
 ```php
-use Odan\Validation\ValidationResult;
+use Selective\Validation\ValidationResult;
 
 // Get all POST values
 $data = $request->getParsedBody();
@@ -54,7 +54,7 @@ if ($validation->isFailed()) {
 This validation middleware catches the `ValidationException` exception and converts it into a nice JSON response:
 
 ```php
-use Odan\Validation\ValidationException;
+use Selective\Validation\ValidationException;
 
 // Validation middleware
 $app->add(function (Request $request, Response $response, $next) {
