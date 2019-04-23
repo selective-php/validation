@@ -21,4 +21,4 @@ before_script:
 script:
 #  - composer check-style
   - composer phpstan
-  - composer phpunit-coverage
+  - composer test-coverage
