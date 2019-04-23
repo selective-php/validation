@@ -19,6 +19,6 @@ before_script:
   - cd $TRAVIS_BUILD_DIR
 
 script:
-  - ant check-style
-  - ant phpstan
-  - ant phpunit-coverage
+#  - composer check-style
+  - composer phpstan
+  - composer phpunit-coverage
