@@ -23,8 +23,12 @@ class ValidationException extends DomainException
      * @param int $code [optional] The Exception code
      * @param Throwable|null $previous [optional] The previous throwable used for the exception chaining
      */
-    public function __construct(ValidationResult $validationResult, string $message = '', int $code = 0, Throwable $previous = null)
-    {
+    public function __construct(
+        ValidationResult $validationResult,
+        string $message = '',
+        int $code = 0,
+        Throwable $previous = null
+    ) {
         parent::__construct($message, $code, $previous);
 
         $this->validationResult = $validationResult;

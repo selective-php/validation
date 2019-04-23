@@ -90,8 +90,9 @@ class ValidationResultTest extends TestCase
         $result = $val->isFailed();
         $this->assertTrue($result);
         $expected = ['field' => 'email', 'message' => 'required',  'code' => '5000'];
+        $firstError = $val->getFirstError();
 
-        $this->assertEquals($expected, $val->getFirstError()->toArray());
+        $this->assertEquals($expected, $firstError ? $firstError->toArray() : null);
     }
 
     /**
@@ -112,7 +113,9 @@ class ValidationResultTest extends TestCase
 
         $expected = ['field' => 'email', 'message' => 'required',  'code' => '5000'];
 
-        $this->assertEquals($expected, $val->getFirstError()->toArray());
+        $firstError = $val->getFirstError();
+
+        $this->assertEquals($expected, $firstError ? $firstError->toArray() : null);
     }
 
     /**

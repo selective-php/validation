@@ -4,6 +4,7 @@ namespace Odan\Validation\Test;
 
 use Odan\Validation\ValidationException;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * Tests.
@@ -50,7 +51,13 @@ class ValidationExceptionTest extends TestCase
      */
     protected function withJson($data): string
     {
-        return json_encode($data);
+        $result = json_encode($data);
+
+        if ($result === false) {
+            throw new RuntimeException('Json encoding failed');
+        }
+
+        return $result;
     }
 
     /**
