@@ -16,19 +16,19 @@ use JsonSerializable;
 class ValidationResult implements JsonSerializable
 {
     /**
-     * @var array
+     * @var ValidationError[]
      */
     protected $errors = [];
 
     /**
      * @var string|null
      */
-    protected $message = null;
+    protected $message;
 
     /**
      * @var string|null
      */
-    protected $code = null;
+    protected $code;
 
     /**
      * Get all errors.
@@ -41,13 +41,29 @@ class ValidationResult implements JsonSerializable
     }
 
     /**
+     * Get all errors as array.
+     *
+     * @return array Errors
+     */
+    public function getErrorsAsArray(): array
+    {
+        $result = [];
+
+        foreach ($this->errors as $error) {
+            $result[] = $error->toArray();
+        }
+
+        return $result;
+    }
+
+    /**
      * Get first error.
      *
      * @return ValidationError|null Error message
      */
     public function getFirstError()
     {
-        return reset($this->errors);
+        return reset($this->errors) ?: null;
     }
 
     /**
@@ -138,10 +154,10 @@ class ValidationResult implements JsonSerializable
      */
     public function addError(string $field, string $message, string $code = null)
     {
-        $message = new ValidationError($message);
-        $message->setField($field)->setCode($code);
+        $error = new ValidationError($message);
+        $error->setField($field)->setCode($code);
 
-        $this->errors[] = $message;
+        $this->errors[] = $error;
     }
 
     /**
@@ -175,11 +191,8 @@ class ValidationResult implements JsonSerializable
             $result['message'] = $message;
         }
 
-        if (!empty($errors = $this->getErrors())) {
-            $result['errors'] = [];
-            foreach ($errors as $error) {
-                $result['errors'][] = $error->toArray();
-            }
+        if ($errors = $this->getErrorsAsArray()) {
+            $result['errors'] = $errors;
         }
 
         return $result;
