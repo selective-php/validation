@@ -1,15 +1,15 @@
 <?php
 
-namespace Odan\Validation\Test;
+namespace Selective\Validation\Test;
 
-use Odan\Validation\ValidationError;
-use Odan\Validation\ValidationResult;
+use Selective\Validation\ValidationError;
+use Selective\Validation\ValidationResult;
 use PHPUnit\Framework\TestCase;
 
 /**
  * ValidationResult tests.
  *
- * @coversDefaultClass \Odan\Validation\ValidationResult
+ * @coversDefaultClass \Selective\Validation\ValidationResult
  */
 class ValidationResultTest extends TestCase
 {

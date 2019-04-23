@@ -1,6 +1,6 @@
 <?php
 
-namespace Odan\Validation;
+namespace Selective\Validation;
 
 use DomainException;
 use Throwable;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Odan\Validation\Test;
+namespace Selective\Validation\Test;
 
-use Odan\Validation\ValidationException;
-use Odan\Validation\ValidationResult;
+use Selective\Validation\ValidationException;
+use Selective\Validation\ValidationResult;
 
 /**
  * Test service.

@@ -1,5 +1,5 @@
 {
-    "name": "odan/validation",
+    "name": "selective/validation",
     "description": "Validation classes",
     "minimum-stability": "stable",
     "type": "library",
@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Odan\\Validation\\": "src/Validation/"
+            "Selective\\Validation\\": "src/Validation/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Odan\\Validation\\Test\\": "tests/"
+            "Selective\\Validation\\Test\\": "tests/"
         }
     },
     "config": {

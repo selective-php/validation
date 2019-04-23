@@ -1,15 +1,15 @@
 <?php
 
-namespace Odan\Validation\Test;
+namespace Selective\Validation\Test;
 
-use Odan\Validation\ValidationException;
+use Selective\Validation\ValidationException;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
 /**
  * Tests.
  *
- * @coversDefaultClass \Odan\Validation\ValidationExceptionTest
+ * @coversDefaultClass \Selective\Validation\ValidationExceptionTest
  */
 class ValidationExceptionTest extends TestCase
 {
