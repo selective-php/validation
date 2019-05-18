@@ -50,7 +50,7 @@ if ($validation->isFailed()) {
 }
 ```
 
-### Slim 3 Middleware
+### PSR-7 Middleware
 
 This validation middleware catches the `ValidationException` exception and converts it into a nice JSON response:
 
