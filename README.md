@@ -25,6 +25,8 @@ Login example:
 use Selective\Validation\ValidationException;
 use Selective\Validation\ValidationResult;
 
+// ...
+
 // Get all POST values
 $data = $request->getParsedBody();
 
@@ -55,6 +57,8 @@ if ($validation->isFailed()) {
 This validation middleware catches the `ValidationException` exception and converts it into a nice JSON response:
 
 ```php
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Selective\Validation\ValidationException;
 
 // Validation middleware
