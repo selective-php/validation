@@ -22,6 +22,7 @@ composer require selective/validation
 Login example:
 
 ```php
+use Selective\Validation\ValidationException;
 use Selective\Validation\ValidationResult;
 
 // Get all POST values
