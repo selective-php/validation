@@ -61,6 +61,7 @@ The `ValidationExceptionMiddleware` PSR-15 middleware catches all exceptions and
 ```php
 <?php
 
+use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
 use Slim\Factory\AppFactory;
 
@@ -68,11 +69,56 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = AppFactory::create();
 
-$app->add(ValidationExceptionMiddleware::class); // <--- add middleware
+$app->add(new ValidationExceptionMiddleware(
+    $app->getResponseFactory(),
+    new JsonEncoder()
+));
+
+// If you are using a container, you can also use this option:
+// $app->add(ValidationExceptionMiddleware::class);
 
 // ...
 
 $app->run();
+```
+
+### Container definition
+
+This example uses PHI-DI:
+
+```php
+<?php
+
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Selective\Validation\Encoder\JsonEncoder;
+use Selective\Validation\Middleware\ValidationExceptionMiddleware;
+use Slim\App;
+use Slim\Factory\AppFactory;
+// ...
+
+return [
+    ValidationExceptionMiddleware::class => static function (ContainerInterface $container) {
+        $factory = $container->get(ResponseFactoryInterface::class);
+
+        return new ValidationExceptionMiddleware($factory, new JsonEncoder());
+    },
+
+    ResponseFactoryInterface::class => static function (ContainerInterface $container) {
+        $app = $container->get(App::class);
+
+        return $app->getResponseFactory();
+    },
+
+    App::class => static function (ContainerInterface $container) {
+        AppFactory::setContainer($container);
+
+        return AppFactory::create();
+    },
+
+    // ...
+
+];
 ```
 
 #### Usage
