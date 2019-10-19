@@ -63,5 +63,10 @@ class ValidationExceptionMiddlewareTest extends TestCase
             StatusCodeInterface::STATUS_UNPROCESSABLE_ENTITY,
             $response->getStatusCode()
         );
+
+        static::assertSame(
+            'application/json',
+            $response->getHeaderLine('content-type')
+        );
     }
 }
