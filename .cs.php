@@ -10,7 +10,8 @@ return PhpCsFixer\Config::create()
         '@Symfony' => true,
         'psr4' => true,
         // custom rules
-        'align_multiline_comment' => true, // psr-5
+        'align_multiline_comment' => ['comment_type' => 'phpdocs_only'], // psr-5
+        'phpdoc_to_comment' => false,
         'array_indentation' => true,
         'array_syntax' => ['syntax' => 'short'],
         'cast_spaces' => ['space' => 'none'],

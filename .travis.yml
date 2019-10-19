@@ -1,24 +1,19 @@
 language: php
 
 php:
-  - 7.1
   - 7.2
-  
-# This triggers builds to run on the new TravisCI infrastructure.
-# See: https://docs.travis-ci.com/user/getting-started/#Selecting-infrastructure-(optional)
-sudo: false
+  - 7.3
 
-# Cache composer
+dist: bionic
+
 cache:
   directories:
     - $HOME/.composer/cache
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+  - composer self-update
+  - composer install --no-interaction --prefer-dist --no-progress
   - cd $TRAVIS_BUILD_DIR
 
 script:
-#  - composer check-style
-  - composer phpstan
-  - composer test-coverage
+  - composer check-all
