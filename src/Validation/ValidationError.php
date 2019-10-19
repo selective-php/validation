@@ -22,7 +22,7 @@ class ValidationError
     /**
      * @var string|null
      */
-    protected $code = null;
+    protected $code;
 
     /**
      * Constructor.
@@ -103,14 +103,14 @@ class ValidationError
             'message' => $this->getMessage(),
         ];
 
-        $field = $this->getField();
-        if ($field !== null) {
-            $result['field'] = $field;
+        $fieldName = $this->getField();
+        if ($fieldName !== null) {
+            $result['field'] = $fieldName;
         }
 
-        $code = $this->getCode();
-        if ($code !== null) {
-            $result['code'] = $code;
+        $errorCode = $this->getCode();
+        if ($errorCode !== null) {
+            $result['code'] = $errorCode;
         }
 
         return $result;
