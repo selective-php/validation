@@ -2,8 +2,8 @@
 
 namespace Selective\Validation\Test;
 
-use Selective\Validation\ValidationError;
 use PHPUnit\Framework\TestCase;
+use Selective\Validation\ValidationError;
 
 /**
  * Tests.
