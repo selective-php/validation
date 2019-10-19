@@ -52,7 +52,9 @@ final class ValidationExceptionMiddleware implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (ValidationException $exception) {
-            $response = $this->responseFactory->createResponse()->withStatus(422);
+            $response = $this->responseFactory->createResponse()
+                ->withStatus(422)
+                ->withHeader('Content-Type', 'application/json');
 
             $response->getBody()->write($this->encoder->encode([
                 'error' => $exception->getValidation()->toArray(),
