@@ -28,7 +28,7 @@ use Selective\Validation\ValidationResult;
 // ...
 
 // Get all POST values
-$data = $request->getParsedBody();
+$data = (array)$request->getParsedBody();
 
 $validation = new ValidationResult();
 
@@ -52,23 +52,49 @@ if ($validation->isFailed()) {
 }
 ```
 
-### PSR-7 Middleware
+### Middleware
 
-This validation middleware catches the `ValidationException` exception and converts it into a nice JSON response:
+The `ValidationExceptionMiddleware` PSR-15 middleware catches all exceptions and converts it into a nice JSON response.
+
+#### Slim 4 integration
 
 ```php
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Selective\Validation\ValidationException;
+<?php
 
-// Validation middleware
-$app->add(function (Request $request, Response $response, $next) {
-    try{
-        return $next($request, $response);
-    } catch (ValidationException $exception) {
-        return $response->withStatus(422)->withJson(['error' => $exception->getValidation()->toArray()]);
-    }
-});
+use Selective\Validation\Middleware\ValidationExceptionMiddleware;
+use Slim\Factory\AppFactory;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$app = AppFactory::create();
+
+$app->add(ValidationExceptionMiddleware::class); // <--- add middleware
+
+// ...
+
+$app->run();
+```
+
+#### Usage
+
+```php
+use Selective\Validation\ValidationException;
+use Selective\Validation\ValidationResult;
+
+$validation = new ValidationResult();
+
+// Validate username
+if (empty($data->username)) {
+    $validation->addError('username', 'Input required');
+}
+
+// Check validation result
+if ($validation->isFailed()) {
+    $validation->setMessage('Please check your input');
+
+    // Trigger the validation middleware
+    throw new ValidationException($validation);
+}
 ```
 
 ## License
