@@ -40,7 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Selective\\Validation\\": "src/Validation/"
+            "Selective\\Validation\\": "src/"
         }
     },
     "autoload-dev": {

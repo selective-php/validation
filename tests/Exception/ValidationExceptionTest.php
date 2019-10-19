@@ -1,10 +1,11 @@
 <?php
 
-namespace Selective\Validation\Test;
+namespace Selective\Validation\Test\Exception;
 
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Selective\Validation\ValidationException;
+use Selective\Validation\Exception\ValidationException;
+use Selective\Validation\Test\TestService;
 
 /**
  * Tests.

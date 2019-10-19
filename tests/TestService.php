@@ -2,7 +2,7 @@
 
 namespace Selective\Validation\Test;
 
-use Selective\Validation\ValidationException;
+use Selective\Validation\Exception\ValidationException;
 use Selective\Validation\ValidationResult;
 
 /**

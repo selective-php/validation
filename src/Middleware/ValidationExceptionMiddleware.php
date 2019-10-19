@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Selective\Validation\Encoder\EncoderInterface;
-use Selective\Validation\ValidationException;
+use Selective\Validation\Exception\ValidationException;
 
 /**
  * A JSON validation exception middleware.

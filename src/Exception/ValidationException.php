@@ -1,8 +1,9 @@
 <?php
 
-namespace Selective\Validation;
+namespace Selective\Validation\Exception;
 
 use DomainException;
+use Selective\Validation\ValidationResult;
 use Throwable;
 
 /**
