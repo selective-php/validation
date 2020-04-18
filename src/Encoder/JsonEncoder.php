@@ -24,11 +24,7 @@ final class JsonEncoder implements EncoderInterface
 
         if ($result === false) {
             throw new UnexpectedValueException(
-                sprintf(
-                    'JSON encoding failed. Code: %s. Error: %s.',
-                    json_last_error(),
-                    json_last_error_msg()
-                )
+                sprintf('JSON encoding failed. Code: %s. Error: %s.', json_last_error(), json_last_error_msg())
             );
         }
 
