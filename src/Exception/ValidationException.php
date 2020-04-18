@@ -7,22 +7,22 @@ use Selective\Validation\ValidationResult;
 use Throwable;
 
 /**
- * Class ValidationException.
+ * Exception.
  */
-class ValidationException extends DomainException
+final class ValidationException extends DomainException
 {
     /**
      * @var ValidationResult
      */
-    protected $validationResult;
+    private $validationResult;
 
     /**
      * Construct the exception.
      *
      * @param ValidationResult $validationResult The validation result object
-     * @param string $message [optional] The Exception message to throw
-     * @param int $code [optional] The Exception code
-     * @param Throwable|null $previous [optional] The previous throwable used for the exception chaining
+     * @param string $message The Exception message to throw
+     * @param int $code The Exception code
+     * @param Throwable|null $previous The previous throwable used for the exception chaining
      */
     public function __construct(
         ValidationResult $validationResult,
@@ -36,9 +36,11 @@ class ValidationException extends DomainException
     }
 
     /**
-     * @return ValidationResult
+     * Get the validation result.
+     *
+     * @return ValidationResult The validation result
      */
-    public function getValidation(): ValidationResult
+    public function getValidationResult(): ValidationResult
     {
         return $this->validationResult;
     }
