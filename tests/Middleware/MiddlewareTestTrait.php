@@ -31,8 +31,6 @@ trait MiddlewareTestTrait
 
     /**
      * Factory.
-     *
-     * @return ServerRequestInterface
      */
     protected function createRequest(): ServerRequestInterface
     {

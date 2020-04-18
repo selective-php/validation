@@ -33,12 +33,8 @@ class TestService
             throw new ValidationException($validation);
         }
 
-        $result = [];
-        $result['success'] = true;
-        $result['message'] = 'Successfully';
-        $result['code'] = 0;
-        $result['data']['foo'] = 'value';
-
-        return $result;
+        return [
+            'success' => true,
+        ];
     }
 }

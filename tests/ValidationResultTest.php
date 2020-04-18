@@ -16,7 +16,7 @@ class ValidationResultTest extends TestCase
     /**
      * Test instance.
      */
-    public function testInstance()
+    public function testInstance(): void
     {
         $actual = new ValidationResult();
         $this->assertInstanceOf(ValidationResult::class, $actual);
@@ -27,7 +27,7 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testSetSuccessMessage()
+    public function testSetSuccessMessage(): void
     {
         $val = new ValidationResult();
         $val->setMessage('test');
@@ -41,7 +41,7 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testErrors()
+    public function testErrors(): void
     {
         $val = new ValidationResult();
         $val->addError('error1', 'failed');
@@ -55,7 +55,7 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testErrorsEmptyFieldOne()
+    public function testErrorsEmptyFieldOne(): void
     {
         $val = new ValidationResult();
         $val->addError('', 'invalid');
@@ -69,7 +69,7 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testErrorsWithField()
+    public function testErrorsWithField(): void
     {
         $val = new ValidationResult();
         $val->addError('field', 'message');
@@ -83,16 +83,18 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testErrorsWithMessage()
+    public function testErrorsWithMessage(): void
     {
         $val = new ValidationResult();
         $val->addError('email', 'required', '5000');
         $result = $val->isFailed();
         $this->assertTrue($result);
-        $expected = ['field' => 'email', 'message' => 'required',  'code' => '5000'];
-        $firstError = $val->getFirstError();
 
-        $this->assertEquals($expected, $firstError ? $firstError->toArray() : null);
+        $firstError = $val->getFirstError();
+        $this->assertInstanceOf(ValidationError::class, $firstError);
+        $this->assertSame('email', $firstError->getField());
+        $this->assertSame('required', $firstError->getMessage());
+        $this->assertSame('5000', $firstError->getCode());
     }
 
     /**
@@ -101,7 +103,7 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testAddErrorMessage()
+    public function testAddErrorMessage(): void
     {
         $val = new ValidationResult();
         $message = new ValidationError('required');
@@ -111,11 +113,11 @@ class ValidationResultTest extends TestCase
         $result = $val->isFailed();
         $this->assertTrue($result);
 
-        $expected = ['field' => 'email', 'message' => 'required',  'code' => '5000'];
-
         $firstError = $val->getFirstError();
 
-        $this->assertEquals($expected, $firstError ? $firstError->toArray() : null);
+        $this->assertSame('email', $firstError->getField());
+        $this->assertSame('required', $firstError->getMessage());
+        $this->assertSame('5000', $firstError->getCode());
     }
 
     /**
@@ -124,7 +126,7 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testNoErrors()
+    public function testNoErrors(): void
     {
         $val = new ValidationResult();
         $result = $val->isFailed();
@@ -136,7 +138,7 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testGetMessage()
+    public function testGetMessage(): void
     {
         $val = new ValidationResult();
         $val->setMessage('Check your input');
@@ -151,7 +153,7 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testClear()
+    public function testClear(): void
     {
         $val = new ValidationResult();
         $val->setMessage('Errors');
@@ -166,7 +168,7 @@ class ValidationResultTest extends TestCase
      *
      * @return void
      */
-    public function testGetErrors()
+    public function testGetErrors(): void
     {
         $val = new ValidationResult();
         $errorFieldName = 'ERROR';
@@ -176,27 +178,5 @@ class ValidationResultTest extends TestCase
         $this->assertSame($result[0]->getField(), $errorFieldName);
         $this->assertSame($result[0]->getMessage(), $errorMessage);
         $this->assertNull($result[0]->getCode());
-    }
-
-    /**
-     * Tests toArray function.
-     *
-     * @return void
-     */
-    public function testToArray()
-    {
-        $val = new ValidationResult();
-        $val->setCode('error_code');
-        $val->setMessage('Errors');
-        $val->addError('error1', 'error');
-        $val->addError('error2', 'error', '5000');
-        $result = $val->toArray();
-        $this->assertSame($result['code'], 'error_code');
-        $this->assertSame($result['message'], 'Errors');
-        $this->assertSame($result['errors'][0]['field'], 'error1');
-        $this->assertSame($result['errors'][0]['message'], 'error');
-        $this->assertSame($result['errors'][1]['field'], 'error2');
-        $this->assertSame($result['errors'][1]['message'], 'error');
-        $this->assertSame($result['errors'][1]['code'], '5000');
     }
 }

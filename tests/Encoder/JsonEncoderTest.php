@@ -28,13 +28,12 @@ class JsonEncoderTest extends TestCase
 
     /**
      * Test.
-     *
-     * @return void
      */
     public function testInvalidEncoding(): void
     {
         $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage('JSON encoding failed. Code: 5. Error: Malformed UTF-8 characters, possibly incorrectly encoded.');
+        $this->expectExceptionMessage('JSON encoding failed. Code: 5. Error: Malformed UTF-8 characters,' .
+            ' possibly incorrectly encoded.');
 
         $encoder = new JsonEncoder();
         $encoder->encode(['key' => "\x00\x81"]);

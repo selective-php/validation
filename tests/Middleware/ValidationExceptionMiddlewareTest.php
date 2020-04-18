@@ -6,6 +6,7 @@ use Fig\Http\Message\StatusCodeInterface;
 use PHPUnit\Framework\TestCase;
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
+use Selective\Validation\Transformer\ErrorDetailsTransformer;
 use Slim\Psr7\Factory\ResponseFactory;
 
 /**
@@ -26,6 +27,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
     {
         $middleware = new ValidationExceptionMiddleware(
             new ResponseFactory(),
+            new ErrorDetailsTransformer(),
             new JsonEncoder()
         );
 
@@ -46,6 +48,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
     {
         $middleware = new ValidationExceptionMiddleware(
             new ResponseFactory(),
+            new ErrorDetailsTransformer(),
             new JsonEncoder()
         );
 
@@ -55,7 +58,8 @@ class ValidationExceptionMiddlewareTest extends TestCase
         ]);
 
         static::assertSame(
-            '{"error":{"message":"Please check your input","errors":[{"message":"Input required","field":"username"}]}}',
+            '{"error":{"message":"Please check your input","details":' .
+            '[{"message":"Input required","field":"username"}]}}',
             (string)$response->getBody()
         );
 
