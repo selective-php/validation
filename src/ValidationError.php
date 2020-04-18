@@ -3,26 +3,26 @@
 namespace Selective\Validation;
 
 /**
- * Message.
+ * Validation error message.
  *
- * Represents a status and a message.
+ * Represents a single error message.
  */
-class ValidationError
+final class ValidationError
 {
-    /**
-     * @var string|null
-     */
-    protected $field;
-
     /**
      * @var string
      */
-    protected $message;
+    private $message;
 
     /**
      * @var string|null
      */
-    protected $code;
+    private $field;
+
+    /**
+     * @var string|null
+     */
+    private $code;
 
     /**
      * Constructor.
@@ -36,8 +36,6 @@ class ValidationError
 
     /**
      * Returns the message.
-     *
-     * @return string
      */
     public function getMessage(): string
     {
@@ -49,9 +47,9 @@ class ValidationError
      *
      * @param string $field The field name
      *
-     * @return $this self
+     * @return self self
      */
-    public function setField(string $field)
+    public function setField(string $field): self
     {
         $this->field = $field;
 
@@ -63,7 +61,7 @@ class ValidationError
      *
      * @return string|null The field name
      */
-    public function getField()
+    public function getField(): ?string
     {
         return $this->field;
     }
@@ -72,10 +70,8 @@ class ValidationError
      * Set the field name.
      *
      * @param mixed $code The error code
-     *
-     * @return $this self
      */
-    public function setCode($code)
+    public function setCode($code): self
     {
         $this->code = $code;
 
@@ -90,29 +86,5 @@ class ValidationError
     public function getCode(): ?string
     {
         return $this->code;
-    }
-
-    /**
-     * Convert to array.
-     *
-     * @return array Data
-     */
-    public function toArray(): array
-    {
-        $result = [
-            'message' => $this->getMessage(),
-        ];
-
-        $fieldName = $this->getField();
-        if ($fieldName !== null) {
-            $result['field'] = $fieldName;
-        }
-
-        $errorCode = $this->getCode();
-        if ($errorCode !== null) {
-            $result['code'] = $errorCode;
-        }
-
-        return $result;
     }
 }
