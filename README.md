@@ -54,7 +54,8 @@ if ($validation->isFailed()) {
 
 ### Middleware
 
-The `ValidationExceptionMiddleware` PSR-15 middleware catches all exceptions and converts it into a nice JSON response.
+The `ValidationExceptionMiddleware` PSR-15 middleware catches all exceptions and converts 
+it into a nice JSON response.
 
 #### Slim 4 integration
 
@@ -63,6 +64,7 @@ The `ValidationExceptionMiddleware` PSR-15 middleware catches all exceptions and
 
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
+use Selective\Validation\Transformer\ErrorDetailsTransformer;
 use Slim\Factory\AppFactory;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -71,6 +73,7 @@ $app = AppFactory::create();
 
 $app->add(new ValidationExceptionMiddleware(
     $app->getResponseFactory(),
+    new ErrorDetailsTransformer(),
     new JsonEncoder()
 ));
 
@@ -93,6 +96,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
+use Selective\Validation\Transformer\ErrorDetailsTransformer;
 use Slim\App;
 use Slim\Factory\AppFactory;
 // ...
@@ -101,7 +105,7 @@ return [
     ValidationExceptionMiddleware::class => static function (ContainerInterface $container) {
         $factory = $container->get(ResponseFactoryInterface::class);
 
-        return new ValidationExceptionMiddleware($factory, new JsonEncoder());
+        return new ValidationExceptionMiddleware($factory, new ErrorDetailsTransformer(), new JsonEncoder());
     },
 
     ResponseFactoryInterface::class => static function (ContainerInterface $container) {
@@ -140,6 +144,31 @@ if ($validation->isFailed()) {
 
     // Trigger the validation middleware
     throw new ValidationException($validation);
+}
+```
+
+## Transformer
+
+If you want to implement a custom response data structure, 
+you can implement against the `\Selective\Validation\Transformer\TransformerInterface` interface.
+
+**Example**
+```
+<?php
+
+namespace App\Transformer;
+
+use Selective\Validation\ValidationResult;
+
+final class MyValidationTransformer implements TransformerInterface
+{
+    public function transform(ValidationResult $validationResult): array
+    {
+        // Implement your own data structure for the response
+        // ...
+
+        return [];
+    }
 }
 ```
 
