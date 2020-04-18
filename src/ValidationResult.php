@@ -2,8 +2,6 @@
 
 namespace Selective\Validation;
 
-use JsonSerializable;
-
 /**
  * Validation Result.
  *
@@ -13,22 +11,22 @@ use JsonSerializable;
  *
  * https://martinfowler.com/articles/replaceThrowWithNotification.html
  */
-class ValidationResult implements JsonSerializable
+final class ValidationResult
 {
     /**
      * @var ValidationError[]
      */
-    protected $errors = [];
+    private $errors = [];
 
     /**
      * @var string|null
      */
-    protected $message;
+    private $message;
 
     /**
      * @var string|null
      */
-    protected $code;
+    private $code;
 
     /**
      * Get all errors.
@@ -41,35 +39,17 @@ class ValidationResult implements JsonSerializable
     }
 
     /**
-     * Get all errors as array.
-     *
-     * @return array Errors
-     */
-    public function getErrorsAsArray(): array
-    {
-        $result = [];
-
-        foreach ($this->errors as $error) {
-            $result[] = $error->toArray();
-        }
-
-        return $result;
-    }
-
-    /**
      * Get first error.
      *
      * @return ValidationError|null Error message
      */
-    public function getFirstError()
+    public function getFirstError(): ?ValidationError
     {
         return reset($this->errors) ?: null;
     }
 
     /**
      * Get message.
-     *
-     * @return string|null
      */
     public function getMessage(): ?string
     {
@@ -80,18 +60,14 @@ class ValidationResult implements JsonSerializable
      * Set the default success message.
      *
      * @param string $message The default success message
-     *
-     * @return void
      */
-    public function setMessage(string $message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
 
     /**
      * Get the error code.
-     *
-     * @return string|null
      */
     public function getCode(): ?string
     {
@@ -102,10 +78,8 @@ class ValidationResult implements JsonSerializable
      * Set the error code.
      *
      * @param string $code The error code
-     *
-     * @return void
      */
-    public function setCode(string $code)
+    public function setCode(string $code): void
     {
         $this->code = $code;
     }
@@ -132,10 +106,8 @@ class ValidationResult implements JsonSerializable
 
     /**
      * Clear errors and message.
-     *
-     * @return void
      */
-    public function clear()
+    public function clear(): void
     {
         $this->code = null;
         $this->message = null;
@@ -145,14 +117,12 @@ class ValidationResult implements JsonSerializable
     /**
      * Add error message.
      *
-     * @param string $field the field name containing the error
-     * @param string $message a String providing a short description of the error.
+     * @param string $field The field name containing the error
+     * @param string $message A String providing a short description of the error.
      * The message SHOULD be limited to a concise single sentence
      * @param string|null $code A numeric or alphanumeric value that indicates the error type that occurred. (optional)
-     *
-     * @return void
      */
-    public function addError(string $field, string $message, string $code = null)
+    public function addError(string $field, string $message, string $code = null): void
     {
         $error = new ValidationError($message);
         $error->setField($field)->setCode($code);
@@ -164,47 +134,9 @@ class ValidationResult implements JsonSerializable
      * Add a validation error object.
      *
      * @param ValidationError $validationError The error object
-     *
-     * @return void
      */
-    public function addValidationError(ValidationError $validationError)
+    public function addValidationError(ValidationError $validationError): void
     {
         $this->errors[] = $validationError;
-    }
-
-    /**
-     * Convert to array.
-     *
-     * @return array Data
-     */
-    public function toArray(): array
-    {
-        $result = [];
-
-        $code = $this->getCode();
-        if ($code !== null) {
-            $result['code'] = $code;
-        }
-
-        $message = $this->getMessage();
-        if ($message !== null) {
-            $result['message'] = $message;
-        }
-
-        if ($errors = $this->getErrorsAsArray()) {
-            $result['errors'] = $errors;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Serializes the object to a value that can be serialized natively by json_encode().
-     *
-     * @return array|mixed
-     */
-    public function jsonSerialize()
-    {
-        return $this->toArray();
     }
 }
