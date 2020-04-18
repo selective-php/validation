@@ -11,6 +11,21 @@ use Selective\Validation\ValidationResult;
 final class ErrorDetailsTransformer implements TransformerInterface
 {
     /**
+     * @var string
+     */
+    private $detailsName;
+
+    /**
+     * The constructor.
+     *
+     * @param string $detailsName The name of the details index.
+     */
+    public function __construct(string $detailsName = 'details')
+    {
+        $this->detailsName = $detailsName;
+    }
+
+    /**
      * Transform the given ValidationResult into an array.
      *
      * @param ValidationResult $validationResult The validation result
@@ -33,7 +48,7 @@ final class ErrorDetailsTransformer implements TransformerInterface
 
         $errors = $validationResult->getErrors();
         if ($errors) {
-            $error['details'] = $this->getErrorDetails($errors);
+            $error[$this->detailsName] = $this->getErrorDetails($errors);
         }
 
         return ['error' => $error];
