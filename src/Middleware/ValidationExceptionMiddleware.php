@@ -9,6 +9,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Selective\Validation\Encoder\EncoderInterface;
 use Selective\Validation\Exception\ValidationException;
+use Selective\Validation\Transformer\TransformerInterface;
 
 /**
  * A JSON validation exception middleware.
@@ -16,9 +17,9 @@ use Selective\Validation\Exception\ValidationException;
 final class ValidationExceptionMiddleware implements MiddlewareInterface
 {
     /**
-     * @var ResponseFactoryInterface
+     * @var TransformerInterface
      */
-    private $responseFactory;
+    private $transformer;
 
     /**
      * @var EncoderInterface
@@ -26,17 +27,25 @@ final class ValidationExceptionMiddleware implements MiddlewareInterface
     private $encoder;
 
     /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
+    /**
      * Constructor.
      *
      * @param ResponseFactoryInterface $responseFactory The response factory
+     * @param TransformerInterface $transformer The data transformer
      * @param EncoderInterface $encoder The encoder
      */
     public function __construct(
         ResponseFactoryInterface $responseFactory,
+        TransformerInterface $transformer,
         EncoderInterface $encoder
     ) {
-        $this->responseFactory = $responseFactory;
+        $this->transformer = $transformer;
         $this->encoder = $encoder;
+        $this->responseFactory = $responseFactory;
     }
 
     /**
@@ -56,9 +65,9 @@ final class ValidationExceptionMiddleware implements MiddlewareInterface
                 ->withStatus(422)
                 ->withHeader('Content-Type', 'application/json');
 
-            $response->getBody()->write($this->encoder->encode([
-                'error' => $exception->getValidation()->toArray(),
-            ]));
+            $data = $this->transformer->transform($exception->getValidationResult());
+            $content = $this->encoder->encode($data);
+            $response->getBody()->write($content);
 
             return $response;
         }
