@@ -7,7 +7,7 @@ use Selective\Validation\ValidationResult;
 /**
  * Transformer interface.
  */
-interface TransformerInterface
+interface ResultTransformerInterface
 {
     /**
      * Transform the given ValidationResult into an array.

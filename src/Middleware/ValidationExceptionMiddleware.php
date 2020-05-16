@@ -9,7 +9,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Selective\Validation\Encoder\EncoderInterface;
 use Selective\Validation\Exception\ValidationException;
-use Selective\Validation\Transformer\TransformerInterface;
+use Selective\Validation\Transformer\ResultTransformerInterface;
 
 /**
  * A JSON validation exception middleware.
@@ -17,7 +17,7 @@ use Selective\Validation\Transformer\TransformerInterface;
 final class ValidationExceptionMiddleware implements MiddlewareInterface
 {
     /**
-     * @var TransformerInterface
+     * @var ResultTransformerInterface
      */
     private $transformer;
 
@@ -35,12 +35,12 @@ final class ValidationExceptionMiddleware implements MiddlewareInterface
      * Constructor.
      *
      * @param ResponseFactoryInterface $responseFactory The response factory
-     * @param TransformerInterface $transformer The data transformer
+     * @param ResultTransformerInterface $transformer The data transformer
      * @param EncoderInterface $encoder The encoder
      */
     public function __construct(
         ResponseFactoryInterface $responseFactory,
-        TransformerInterface $transformer,
+        ResultTransformerInterface $transformer,
         EncoderInterface $encoder
     ) {
         $this->transformer = $transformer;

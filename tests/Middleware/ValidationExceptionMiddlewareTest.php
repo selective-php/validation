@@ -6,7 +6,7 @@ use Fig\Http\Message\StatusCodeInterface;
 use PHPUnit\Framework\TestCase;
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
-use Selective\Validation\Transformer\ErrorDetailsTransformer;
+use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Slim\Psr7\Factory\ResponseFactory;
 
 /**
@@ -27,7 +27,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
     {
         $middleware = new ValidationExceptionMiddleware(
             new ResponseFactory(),
-            new ErrorDetailsTransformer(),
+            new ErrorDetailsResultTransformer(),
             new JsonEncoder()
         );
 
@@ -48,7 +48,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
     {
         $middleware = new ValidationExceptionMiddleware(
             new ResponseFactory(),
-            new ErrorDetailsTransformer(),
+            new ErrorDetailsResultTransformer(),
             new JsonEncoder()
         );
 

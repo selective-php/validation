@@ -3,13 +3,13 @@
 namespace Selective\Validation\Test\Transformer;
 
 use PHPUnit\Framework\TestCase;
-use Selective\Validation\Transformer\ErrorDetailsTransformer;
+use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Selective\Validation\ValidationResult;
 
 /**
  * Tests.
  *
- * @coversDefaultClass \Selective\Validation\Transformer\ErrorDetailsTransformer
+ * @coversDefaultClass \Selective\Validation\Transformer\ErrorDetailsResultTransformer
  */
 class ErrorDetailsTransformerTest extends TestCase
 {
@@ -20,7 +20,7 @@ class ErrorDetailsTransformerTest extends TestCase
      */
     public function testTransform()
     {
-        $transformer = new ErrorDetailsTransformer();
+        $transformer = new ErrorDetailsResultTransformer();
 
         $validationResult = new ValidationResult();
         $actual = $transformer->transform($validationResult);

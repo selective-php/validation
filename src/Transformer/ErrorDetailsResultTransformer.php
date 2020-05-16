@@ -8,7 +8,7 @@ use Selective\Validation\ValidationResult;
 /**
  * Transform validation result to array with error details.
  */
-final class ErrorDetailsTransformer implements TransformerInterface
+final class ErrorDetailsResultTransformer implements ResultTransformerInterface
 {
     /**
      * @var string
@@ -18,7 +18,7 @@ final class ErrorDetailsTransformer implements TransformerInterface
     /**
      * The constructor.
      *
-     * @param string $detailsName The name of the details index.
+     * @param string $detailsName The name of the details index
      */
     public function __construct(string $detailsName = 'details')
     {
