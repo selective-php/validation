@@ -22,6 +22,8 @@ composer require selective/validation
 Login example:
 
 ```php
+<?php
+
 use Selective\Validation\ValidationException;
 use Selective\Validation\ValidationResult;
 
@@ -128,6 +130,8 @@ return [
 #### Usage
 
 ```php
+<?php
+
 use Selective\Validation\ValidationException;
 use Selective\Validation\ValidationResult;
 
@@ -153,7 +157,8 @@ If you want to implement a custom response data structure,
 you can implement against the `\Selective\Validation\Transformer\TransformerInterface` interface.
 
 **Example**
-```
+
+```php
 <?php
 
 namespace App\Transformer;
