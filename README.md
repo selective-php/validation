@@ -66,7 +66,7 @@ it into a nice JSON response.
 
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
-use Selective\Validation\Transformer\ErrorDetailsTransformer;
+use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Slim\Factory\AppFactory;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -75,7 +75,7 @@ $app = AppFactory::create();
 
 $app->add(new ValidationExceptionMiddleware(
     $app->getResponseFactory(),
-    new ErrorDetailsTransformer(),
+    new ErrorDetailsResultTransformer(),
     new JsonEncoder()
 ));
 
@@ -98,7 +98,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
-use Selective\Validation\Transformer\ErrorDetailsTransformer;
+use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Slim\App;
 use Slim\Factory\AppFactory;
 // ...
@@ -107,7 +107,7 @@ return [
     ValidationExceptionMiddleware::class => static function (ContainerInterface $container) {
         $factory = $container->get(ResponseFactoryInterface::class);
 
-        return new ValidationExceptionMiddleware($factory, new ErrorDetailsTransformer(), new JsonEncoder());
+        return new ValidationExceptionMiddleware($factory, new ErrorDetailsResultTransformer(), new JsonEncoder());
     },
 
     ResponseFactoryInterface::class => static function (ContainerInterface $container) {
@@ -174,6 +174,58 @@ final class MyValidationTransformer implements TransformerInterface
 
         return [];
     }
+}
+```
+
+## Validator integration
+
+You can combine this library with a validator that is doing the actual validation of your input data.
+
+### Integration with CakePHP Validation 
+
+The [cakephp/validation](https://github.com/cakephp/validation) library provides features to 
+build validators that can validate arbitrary arrays of data with ease. 
+
+The `$validator->errors()` method will return a non-empty array when there are validation failures. 
+The returned array of errors then can be converted into a `ValidationResult` 
+using the `CakeValidationErrorCollector`.
+
+For example, if you wanted to validate a contact form before creating and sending 
+an email you could do the following:
+
+**Usage**
+
+```php
+<?php
+
+use Cake\Validation\Validator;
+use Selective\Validation\Exception\ValidationException;
+use Selective\Validation\Collector\CakeValidationErrorCollector;
+
+$formData = $_POST;
+
+// Basic form or json validation
+$validator = new Validator();
+$validator
+    ->requirePresence('email')
+    ->email('email', 'E-mail must be valid')
+    ->requirePresence('name')
+    ->notEmpty('name', 'We need your name.')
+    ->requirePresence('comment')
+    ->notEmpty('comment', 'You need to give a comment.');
+
+$validationResult = (new CakeValidationErrorCollector)
+    ->addErrors($validator->validate($formData));
+
+// Optional: Do more complex validation and append it to the validation result
+if (!$this->existsEmailInDatabase($formData['email'])) {
+    $validationResult->addError('email', 'E-Mail already exists');
+}
+
+if ($validationResult->isFailed()) {
+    $validationResult->setMessage('Validation failed. Please check your input.');
+
+    throw new ValidationException($validationResult);
 }
 ```
 
