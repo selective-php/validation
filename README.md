@@ -154,7 +154,8 @@ if ($validation->isFailed()) {
 ## Transformer
 
 If you want to implement a custom response data structure, 
-you can implement a custom transformer against the `\Selective\Validation\Transformer\TransformerInterface` interface.
+you can implement a custom transformer against the 
+`\Selective\Validation\Transformer\ResultTransformerInterface` interface.
 
 **Example**
 
@@ -163,9 +164,10 @@ you can implement a custom transformer against the `\Selective\Validation\Transf
 
 namespace App\Transformer;
 
+use Selective\Validation\Transformer\ResultTransformerInterface;
 use Selective\Validation\ValidationResult;
 
-final class MyValidationTransformer implements TransformerInterface
+final class MyValidationTransformer implements ResultTransformerInterface
 {
     public function transform(ValidationResult $validationResult): array
     {
@@ -191,7 +193,13 @@ The returned array of errors then can be converted into a `ValidationResult`
 using the `CakeValidationErrorCollector`.
 
 For example, if you wanted to validate a contact form before creating and sending 
-an email you could do the following:
+an email you could do the following.
+
+**Installation**
+
+```
+composer require cakephp/validation
+```
 
 **Usage**
 
@@ -202,7 +210,8 @@ use Cake\Validation\Validator;
 use Selective\Validation\Exception\ValidationException;
 use Selective\Validation\Collector\CakeValidationErrorCollector;
 
-$formData = $_POST;
+// Note: This is just an example. Don't use the $request object within the domain layer.
+$formData = (array)$request->getParsedBody();
 
 // Basic form or json validation
 $validator = new Validator();
