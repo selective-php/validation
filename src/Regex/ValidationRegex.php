@@ -1,6 +1,6 @@
 <?php
 
-namespace Selective\Validation;
+namespace Selective\Validation\Regex;
 
 /**
  * Regex.
@@ -38,7 +38,7 @@ final class ValidationRegex
     const TRIMMED = '/^[\S]+(?: +[\S]+)*$/';
 
     /**
-     * Positive integer greater then 1.
+     * Positive integer >= 1.
      */
     const ID = '/^[1-9][0-9]*$/';
 
