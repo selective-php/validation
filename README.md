@@ -154,7 +154,7 @@ if ($validation->isFailed()) {
 ## Transformer
 
 If you want to implement a custom response data structure, 
-you can implement against the `\Selective\Validation\Transformer\TransformerInterface` interface.
+you can implement a custom transformer against the `\Selective\Validation\Transformer\TransformerInterface` interface.
 
 **Example**
 
