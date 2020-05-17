@@ -1,5 +1,7 @@
 # Validation
 
+A validation library for PHP that uses the [notification pattern](https://martinfowler.com/articles/replaceThrowWithNotification.html).
+
 [![Latest Version on Packagist](https://img.shields.io/github/release/selective-php/validation.svg)](https://packagist.org/packages/selective/validation)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 [![Build Status](https://github.com/selective-php/validation/workflows/build/badge.svg)](https://github.com/selective-php/validation/actions)
@@ -18,6 +20,38 @@ composer require selective/validation
 ```
 
 ## Usage
+
+> A Notification collects together errors
+
+In order to use a notification, you have to create the `ValidationResult` object. 
+A `ValidationResult` can be really simple, sometimes just a list of strings will do the trick.
+
+```php
+<?php
+
+use Selective\Validation\ValidationException;
+use Selective\Validation\ValidationResult;
+
+$validationResult = new ValidationResult();
+
+if (empty($data['username'])) {
+    $validationResult->addError('username', 'Input required');
+}
+```
+
+You can now test the `ValidationResult` and throw an exception if it contains errors.
+
+```php
+if ($validationResult->isFailed()) {
+    // Global error message
+    $validationResult->setMessage('Please check your input');
+
+    // Trigger error response (see validation middleware)
+    throw new ValidationException($validationResult);
+}
+```
+
+## Validating form data
 
 Login example:
 
@@ -52,6 +86,36 @@ if ($validation->isFailed()) {
     // Trigger error response (see validation middleware)
     throw new ValidationException($validation);
 }
+```
+
+### Validating JSON
+
+Validating a JSON request works like validating form data, because in PHP it's just an array from the request object.
+
+```php
+<?php
+
+// Fetch json data from request as array
+$jsonData = (array)$request->getParsedBody();
+
+$validation = new ValidationResult();
+
+// ...
+
+if ($validation->isFailed()) {
+    $validation->setMessage('Please check your input');
+    throw new ValidationException($validation);
+}
+```
+
+In vanilla PHP you can fetch the JSON request as follows:
+
+```php
+<?php
+
+$jsonData = (array)json_decode(file_get_contents('php://input'), true);
+
+// ...
 ```
 
 ### Middleware
