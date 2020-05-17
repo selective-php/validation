@@ -42,11 +42,11 @@ if (empty($data['username'])) {
 You can now test the `ValidationResult` and throw an exception if it contains errors.
 
 ```php
-if ($validationResult->isFailed()) {
-    // Global error message
-    $validationResult->setMessage('Please check your input');
+<?php
 
-    // Trigger error response (see validation middleware)
+if ($validationResult->isFailed()) {
+    $validationResult->setMessage('Please check your input');
+    
     throw new ValidationException($validationResult);
 }
 ```
