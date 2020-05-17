@@ -302,7 +302,7 @@ if ($validationResult->isFailed()) {
 }
 ```
 
-Instead of instantiating the `Validator` and `CakeValidationErrorCollector` yourself, you could use a factory within like this:
+Instead of instantiating the `Validator` and `CakeValidationErrorCollector` yourself, you could use a factory like this
 
 ```php
 <?php
@@ -313,9 +313,6 @@ use Cake\Validation\Validator;
 use Selective\Validation\Collector\CakeValidationErrorCollector;
 use Selective\Validation\Collector\ValidationErrorCollectorInterface;
 
-/**
- * Validation factory.
- */
 final class ValidationFactory
 {
     /**
