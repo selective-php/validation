@@ -24,7 +24,7 @@ composer require selective/validation
 > A Notification collects together errors
 
 In order to use a notification, you have to create the `ValidationResult` object. 
-A `ValidationResult` can be really simple, sometimes just a list of strings will do the trick.
+A `ValidationResult` can be really simple:
 
 ```php
 <?php
