@@ -302,6 +302,59 @@ if ($validationResult->isFailed()) {
 }
 ```
 
+Instead of instantiating the `Validator` and `CakeValidationErrorCollector` yourself, you could use a factory within like this:
+
+```php
+<?php
+
+namespace App\Validation;
+
+use Cake\Validation\Validator;
+use Selective\Validation\Collector\CakeValidationErrorCollector;
+use Selective\Validation\Collector\ValidationErrorCollectorInterface;
+
+/**
+ * Validation factory.
+ */
+final class ValidationFactory
+{
+    /**
+     * Create validator.
+     *
+     * @return Validator The validator
+     */
+    public function createValidator(): Validator
+    {
+        return new Validator();
+    }
+
+    /**
+     * Create a error collector.
+     *
+     * @return ValidationErrorCollectorInterface The error collector
+     */
+    public function createErrorCollector(): ValidationErrorCollectorInterface
+    {
+        return new CakeValidationErrorCollector();
+    }
+}
+```
+
+**Usage**
+
+```php
+<?php
+$validator = $this->validationFactory->createValidator();
+
+// ...
+
+$validationResult = $this->validationFactory->createErrorCollector()->addErrors($validator->validate($form));
+
+if ($validationResult->isFailed()) {
+   // ...
+}
+```
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
