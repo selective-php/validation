@@ -23,23 +23,8 @@ class ValidationResultTest extends TestCase
     }
 
     /**
-     * Tests getMessage and setMessage functions.
-     *
-     * @return void
-     */
-    public function testSetSuccessMessage(): void
-    {
-        $val = new ValidationResult();
-        $val->setMessage('test');
-        $resultText = $val->getMessage();
-        $this->assertSame('test', $resultText);
-    }
-
-    /**
      * Tests addError and success functions.
      * Tests addError function with two strings.
-     *
-     * @return void
      */
     public function testErrors(): void
     {
@@ -52,8 +37,6 @@ class ValidationResultTest extends TestCase
     /**
      * Tests addError and success functions.
      * Tests addError function with an empty string for the first parameter.
-     *
-     * @return void
      */
     public function testErrorsEmptyFieldOne(): void
     {
@@ -66,8 +49,6 @@ class ValidationResultTest extends TestCase
     /**
      * Tests addError and success functions.
      * Tests addError function with an empty string for the second parameter.
-     *
-     * @return void
      */
     public function testErrorsWithField(): void
     {
@@ -80,8 +61,6 @@ class ValidationResultTest extends TestCase
     /**
      * Tests addError and success functions.
      * Tests addError function with null for the second parameter.
-     *
-     * @return void
      */
     public function testErrorsWithMessage(): void
     {
@@ -98,33 +77,8 @@ class ValidationResultTest extends TestCase
     }
 
     /**
-     * Tests addError and success functions.
-     * Tests addError function with null for the second parameter.
-     *
-     * @return void
-     */
-    public function testAddErrorMessage(): void
-    {
-        $val = new ValidationResult();
-        $message = new ValidationError('required');
-        $message->setField('email')->setCode('5000');
-
-        $val->addValidationError($message);
-        $result = $val->isFailed();
-        $this->assertTrue($result);
-
-        $firstError = $val->getFirstError();
-
-        $this->assertSame('email', $firstError->getField());
-        $this->assertSame('required', $firstError->getMessage());
-        $this->assertSame('5000', $firstError->getCode());
-    }
-
-    /**
      * Tests success function.
      * Tests for no errors.
-     *
-     * @return void
      */
     public function testNoErrors(): void
     {
@@ -134,29 +88,11 @@ class ValidationResultTest extends TestCase
     }
 
     /**
-     * Tests __construct function.
-     *
-     * @return void
-     */
-    public function testGetMessage(): void
-    {
-        $val = new ValidationResult();
-        $val->setMessage('Check your input');
-        $this->assertSame('Check your input', $val->getMessage());
-
-        $val->addError('error message', 'field');
-        $this->assertSame('Check your input', $val->getMessage());
-    }
-
-    /**
      * Tests clear function.
-     *
-     * @return void
      */
     public function testClear(): void
     {
         $val = new ValidationResult();
-        $val->setMessage('Errors');
         $val->addError('email', 'required');
         $val->clear();
         $result = $val->isFailed();
@@ -165,8 +101,6 @@ class ValidationResultTest extends TestCase
 
     /**
      * Tests getErrors function.
-     *
-     * @return void
      */
     public function testGetErrors(): void
     {

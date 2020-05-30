@@ -28,9 +28,7 @@ class TestService
         }
 
         if ($validation->isFailed()) {
-            $validation->setMessage('Please check your input');
-
-            throw new ValidationException($validation);
+            throw new ValidationException('Please check your input', $validation);
         }
 
         return [

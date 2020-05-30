@@ -14,8 +14,6 @@ class ValidationErrorTest extends TestCase
 {
     /**
      * Test.
-     *
-     * @return void
      */
     public function testConstruct(): void
     {
@@ -25,10 +23,8 @@ class ValidationErrorTest extends TestCase
 
     /**
      * Test.
-     *
-     * @return void
      */
-    public function testWithField():void
+    public function testWithField(): void
     {
         $message = new ValidationError('required');
         $message->setField('email');
@@ -39,8 +35,6 @@ class ValidationErrorTest extends TestCase
 
     /**
      * Test.
-     *
-     * @return void
      */
     public function testWithFieldAndCode(): void
     {

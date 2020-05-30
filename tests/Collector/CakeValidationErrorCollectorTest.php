@@ -61,8 +61,6 @@ class CakeValidationErrorCollectorTest extends TestCase
         ];
 
         $result = $errorCollector->addErrors($errors);
-        $this->assertNull($result->getMessage());
-        $this->assertNull($result->getCode());
 
         $errors = $this->getValidationResultAsArray($result);
         $expected = [
@@ -142,8 +140,6 @@ class CakeValidationErrorCollectorTest extends TestCase
         ];
 
         $result = $errorCollector->addErrors($errors);
-        $this->assertNull($result->getMessage());
-        $this->assertNull($result->getCode());
 
         $errors = $this->getValidationResultAsArray($result);
         $expected = [

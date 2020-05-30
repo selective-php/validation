@@ -19,16 +19,6 @@ final class ValidationResult
     private $errors = [];
 
     /**
-     * @var string|null
-     */
-    private $message;
-
-    /**
-     * @var string|null
-     */
-    private $code;
-
-    /**
      * Get all errors.
      *
      * @return ValidationError[] Errors
@@ -46,42 +36,6 @@ final class ValidationResult
     public function getFirstError(): ?ValidationError
     {
         return reset($this->errors) ?: null;
-    }
-
-    /**
-     * Get message.
-     */
-    public function getMessage(): ?string
-    {
-        return $this->message;
-    }
-
-    /**
-     * Set the default success message.
-     *
-     * @param string $message The default success message
-     */
-    public function setMessage(string $message): void
-    {
-        $this->message = $message;
-    }
-
-    /**
-     * Get the error code.
-     */
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
-
-    /**
-     * Set the error code.
-     *
-     * @param string $code The error code
-     */
-    public function setCode(string $code): void
-    {
-        $this->code = $code;
     }
 
     /**
@@ -109,8 +63,6 @@ final class ValidationResult
      */
     public function clear(): void
     {
-        $this->code = null;
-        $this->message = null;
         $this->errors = [];
     }
 
@@ -128,15 +80,5 @@ final class ValidationResult
         $error->setField($field)->setCode($code);
 
         $this->errors[] = $error;
-    }
-
-    /**
-     * Add a validation error object.
-     *
-     * @param ValidationError $validationError The error object
-     */
-    public function addValidationError(ValidationError $validationError): void
-    {
-        $this->errors[] = $validationError;
     }
 }
