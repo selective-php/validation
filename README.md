@@ -43,11 +43,8 @@ You can now test the `ValidationResult` and throw an exception if it contains er
 
 ```php
 <?php
-
 if ($validationResult->isFailed()) {
-    $validationResult->setMessage('Please check your input');
-    
-    throw new ValidationException($validationResult);
+    throw new ValidationException('Please check your input', $validationResult);
 }
 ```
 
@@ -80,11 +77,8 @@ if (empty($data['password'])) {
 
 // Check validation result
 if ($validation->isFailed()) {
-    // Global error message
-    $validation->setMessage('Please check your input');
-
     // Trigger error response (see validation middleware)
-    throw new ValidationException($validation);
+    throw new ValidationException('Please check your input', $validation);
 }
 ```
 
@@ -103,8 +97,7 @@ $validation = new ValidationResult();
 // ...
 
 if ($validation->isFailed()) {
-    $validation->setMessage('Please check your input');
-    throw new ValidationException($validation);
+    throw new ValidationException('Please check your input', $validation);
 }
 ```
 
@@ -171,7 +164,11 @@ return [
     ValidationExceptionMiddleware::class => static function (ContainerInterface $container) {
         $factory = $container->get(ResponseFactoryInterface::class);
 
-        return new ValidationExceptionMiddleware($factory, new ErrorDetailsResultTransformer(), new JsonEncoder());
+        return new ValidationExceptionMiddleware(
+            $factory, 
+            new ErrorDetailsResultTransformer(), 
+            new JsonEncoder()
+        );
     },
 
     ResponseFactoryInterface::class => static function (ContainerInterface $container) {
@@ -208,10 +205,8 @@ if (empty($data->username)) {
 
 // Check validation result
 if ($validation->isFailed()) {
-    $validation->setMessage('Please check your input');
-
     // Trigger the validation middleware
-    throw new ValidationException($validation);
+    throw new ValidationException('Please check your input', $validation);
 }
 ```
 
@@ -228,13 +223,16 @@ you can implement a custom transformer against the
 
 namespace App\Transformer;
 
+use Selective\Validation\Exception\ValidationException;
 use Selective\Validation\Transformer\ResultTransformerInterface;
 use Selective\Validation\ValidationResult;
 
 final class MyValidationTransformer implements ResultTransformerInterface
 {
-    public function transform(ValidationResult $validationResult): array
-    {
+    public function transform(
+        ValidationResult $validationResult, 
+        ValidationException $exception = null
+    ): array {
         // Implement your own data structure for the response
         // ...
 
@@ -296,9 +294,7 @@ if (!$this->existsEmailInDatabase($formData['email'])) {
 }
 
 if ($validationResult->isFailed()) {
-    $validationResult->setMessage('Validation failed. Please check your input.');
-
-    throw new ValidationException($validationResult);
+    throw new ValidationException('Validation failed. Please check your input.', $validationResult);
 }
 ```
 
@@ -345,7 +341,8 @@ $validator = $this->validationFactory->createValidator();
 
 // ...
 
-$validationResult = $this->validationFactory->createErrorCollector()->addErrors($validator->validate($form));
+$validationResult = $this->validationFactory->createErrorCollector()
+    ->addErrors($validator->validate($form));
 
 if ($validationResult->isFailed()) {
    // ...
