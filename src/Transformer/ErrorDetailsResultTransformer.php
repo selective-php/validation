@@ -2,6 +2,7 @@
 
 namespace Selective\Validation\Transformer;
 
+use Selective\Validation\Exception\ValidationException;
 use Selective\Validation\ValidationError;
 use Selective\Validation\ValidationResult;
 
@@ -29,21 +30,22 @@ final class ErrorDetailsResultTransformer implements ResultTransformerInterface
      * Transform the given ValidationResult into an array.
      *
      * @param ValidationResult $validationResult The validation result
+     * @param ValidationException|null $exception The validation exception
      *
      * @return array<mixed> The transformed result
      */
-    public function transform(ValidationResult $validationResult): array
+    public function transform(ValidationResult $validationResult, ValidationException $exception = null): array
     {
         $error = [];
 
-        $code = $validationResult->getCode();
-        if ($code !== null) {
-            $error['code'] = $code;
-        }
+        if ($exception !== null) {
+            if ($exception->getMessage()) {
+                $error['message'] = $exception->getMessage();
+            }
 
-        $message = $validationResult->getMessage();
-        if ($message !== null) {
-            $error['message'] = $message;
+            if ($exception->getCode()) {
+                $error['code'] = $exception->getCode();
+            }
         }
 
         $errors = $validationResult->getErrors();

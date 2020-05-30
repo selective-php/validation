@@ -7,7 +7,7 @@ use Selective\Validation\ValidationResult;
 use Throwable;
 
 /**
- * Exception.
+ * Validation Exception.
  */
 final class ValidationException extends DomainException
 {
@@ -19,14 +19,14 @@ final class ValidationException extends DomainException
     /**
      * Construct the exception.
      *
-     * @param ValidationResult $validationResult The validation result object
      * @param string $message The Exception message to throw
+     * @param ValidationResult $validationResult The validation result object
      * @param int $code The Exception code
      * @param Throwable|null $previous The previous throwable used for the exception chaining
      */
     public function __construct(
+        string $message,
         ValidationResult $validationResult,
-        string $message = '',
         int $code = 0,
         Throwable $previous = null
     ) {
