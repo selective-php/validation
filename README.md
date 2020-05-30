@@ -118,35 +118,7 @@ it into a nice JSON response.
 
 #### Slim 4 integration
 
-```php
-<?php
-
-use Selective\Validation\Encoder\JsonEncoder;
-use Selective\Validation\Middleware\ValidationExceptionMiddleware;
-use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
-use Slim\Factory\AppFactory;
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-$app = AppFactory::create();
-
-$app->add(new ValidationExceptionMiddleware(
-    $app->getResponseFactory(),
-    new ErrorDetailsResultTransformer(),
-    new JsonEncoder()
-));
-
-// If you are using a container, you can also use this option:
-// $app->add(ValidationExceptionMiddleware::class);
-
-// ...
-
-$app->run();
-```
-
-### Container definition
-
-This example uses PHI-DI:
+Insert a container definition for `ValidationExceptionMiddleware::class`:
 
 ```php
 <?php
@@ -186,6 +158,27 @@ return [
     // ...
 
 ];
+```
+
+Add the `ValidationExceptionMiddleware` into your middlware stack:
+
+```php
+<?php
+
+use Selective\Validation\Middleware\ValidationExceptionMiddleware;
+use Slim\Factory\AppFactory;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$app = AppFactory::create();
+
+// ...
+
+$app->add(ValidationExceptionMiddleware::class);
+
+// ...
+
+$app->run();
 ```
 
 #### Usage
