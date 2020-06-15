@@ -234,11 +234,11 @@ final class MyValidationTransformer implements ResultTransformerInterface
 }
 ```
 
-## Validator integration
+## Validators
 
 You can combine this library with a validator that is doing the actual validation of your input data.
 
-### Integration with CakePHP Validation 
+### CakePHP Validator
 
 The [cakephp/validation](https://github.com/cakephp/validation) library provides features to 
 build validators that can validate arbitrary arrays of data with ease. 
@@ -281,8 +281,8 @@ $validator
 $validationResult = CakeValidatorFactory::createValidationResult($validator->validate($formData));
 
 // Optional: Do more complex validation and append it to the validation result
-if (!$this->existsEmailInDatabase($formData['email'])) {
-    $validationResult->addError('email', 'E-Mail already exists');
+if ($this->existsUsername($formData['username'])) {
+    $validationResult->addError('username', 'Username is already taken);
 }
 
 if ($validationResult->isFailed()) {
@@ -290,19 +290,78 @@ if ($validationResult->isFailed()) {
 }
 ```
 
+### Symfony Validator
+
+**Installation**
+
+```
+composer require symfony/validator
+```
+
 **Usage**
 
 ```php
 <?php
-$validator = $this->validationFactory->createValidator();
 
-// ...
+use Cake\Validation\Validator;
+use Selective\Validation\Exception\ValidationException;
+use Selective\Validation\Regex\ValidationRegex;
+use Selective\Validation\Factory\SymfonyValidatorFactory;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\Validation;
 
-$validationResult = $this->validationFactory->createErrorCollector()
-    ->addErrors($validator->validate($form));
+// Note: This is just an example. Don't use the $request object within the domain layer.
+$formData = (array)$request->getParsedBody();
+
+// Create a symfony validator instance
+$validator = Validation::createValidator();
+
+// Add rules
+$constraint = new Assert\Collection(
+    [
+        'first_name' => new Assert\NotBlank(['message' => 'Input required']),
+        'last_name' => new Assert\NotBlank(['message' => 'Input required']),
+        'mobile' => new Assert\Optional(
+            [
+                new Assert\Regex(
+                    [
+                        'pattern' => ValidationRegex::PHONE_NUMBER,
+                        'message' => 'Invalid',
+                    ]
+                ),
+            ]
+        ),
+        'comment' => new Assert\Optional(
+            [
+                new Assert\Length(['max' => 255, 'maxMessage' => 'Too long']),
+            ]
+        ),
+        'email' => new Assert\Optional(
+            [
+                new Assert\Email(
+                    [
+                        'message' => 'Invalid',
+                    ]
+                ),
+            ]
+        )
+    ]
+);
+
+$constraint->missingFieldsMessage = 'Input required';
+$violations = $validator->validate($formData, $constraint);
+
+// Convert violations to ValidationResult
+$validationResult = SymfonyValidatorFactory::createValidationResult($violations);
+
+// Optional: Do more complex validation and append it to the validation result
+if ($this->existsUsername($formData['username'])) {
+    $validationResult->addError('username', 'Username is already taken');
+}
 
 if ($validationResult->isFailed()) {
-   // ...
+    throw new ValidationException(__('Please check your input'), $validationResult);
 }
 ```
 
