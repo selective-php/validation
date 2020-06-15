@@ -263,7 +263,7 @@ composer require cakephp/validation
 
 use Cake\Validation\Validator;
 use Selective\Validation\Exception\ValidationException;
-use Selective\Validation\Collector\CakeValidationErrorCollector;
+use Selective\Validation\Factory\CakeValidatorFactory;
 
 // Note: This is just an example. Don't use the $request object within the domain layer.
 $formData = (array)$request->getParsedBody();
@@ -278,8 +278,7 @@ $validator
     ->requirePresence('comment')
     ->notEmpty('comment', 'You need to give a comment.');
 
-$validationResult = (new CakeValidationErrorCollector)
-    ->addErrors($validator->validate($formData));
+$validationResult = CakeValidatorFactory::createValidationResult($validator->validate($formData));
 
 // Optional: Do more complex validation and append it to the validation result
 if (!$this->existsEmailInDatabase($formData['email'])) {
@@ -288,41 +287,6 @@ if (!$this->existsEmailInDatabase($formData['email'])) {
 
 if ($validationResult->isFailed()) {
     throw new ValidationException('Validation failed. Please check your input.', $validationResult);
-}
-```
-
-Instead of instantiating the `Validator` and `CakeValidationErrorCollector` yourself, you could use a factory like this
-
-```php
-<?php
-
-namespace App\Validation;
-
-use Cake\Validation\Validator;
-use Selective\Validation\Collector\CakeValidationErrorCollector;
-use Selective\Validation\Collector\ValidationErrorCollectorInterface;
-
-final class ValidationFactory
-{
-    /**
-     * Create validator.
-     *
-     * @return Validator The validator
-     */
-    public function createValidator(): Validator
-    {
-        return new Validator();
-    }
-
-    /**
-     * Create a error collector.
-     *
-     * @return ValidationErrorCollectorInterface The error collector
-     */
-    public function createErrorCollector(): ValidationErrorCollectorInterface
-    {
-        return new CakeValidationErrorCollector();
-    }
 }
 ```
 

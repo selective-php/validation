@@ -1,16 +1,16 @@
 <?php
 
-namespace Selective\Validation\Test\Collector;
+namespace Selective\Validation\Test\Factory;
 
 use PHPUnit\Framework\TestCase;
-use Selective\Validation\Collector\CakeValidationErrorCollector;
+use Selective\Validation\Factory\CakeValidatorFactory;
 use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Selective\Validation\ValidationResult;
 
 /**
  * Tests.
  */
-class CakeValidationErrorCollectorTest extends TestCase
+class CakeValidationFactoryTest extends TestCase
 {
     /**
      * Convert validation details to array.
@@ -31,9 +31,7 @@ class CakeValidationErrorCollectorTest extends TestCase
      */
     public function testCreateResultFromErrorsSimple()
     {
-        $errorCollector = new CakeValidationErrorCollector();
-
-        $errors = [
+        $result = CakeValidatorFactory::createValidationResult([
             'first_name' => [
                 '_empty' => 'This field cannot be left empty',
             ],
@@ -58,9 +56,7 @@ class CakeValidationErrorCollectorTest extends TestCase
             'street' => [
                 '_empty' => 'This field cannot be left empty',
             ],
-        ];
-
-        $result = $errorCollector->addErrors($errors);
+        ]);
 
         $errors = $this->getValidationResultAsArray($result);
         $expected = [
@@ -108,9 +104,7 @@ class CakeValidationErrorCollectorTest extends TestCase
      */
     public function testCreateResultFromErrorsNestedArray()
     {
-        $errorCollector = new CakeValidationErrorCollector();
-
-        $errors = [
+        $result = CakeValidatorFactory::createValidationResult([
             'bills' => [
                 0 => [
                     'billing_number' => [
@@ -137,9 +131,7 @@ class CakeValidationErrorCollectorTest extends TestCase
                     ],
                 ],
             ],
-        ];
-
-        $result = $errorCollector->addErrors($errors);
+        ]);
 
         $errors = $this->getValidationResultAsArray($result);
         $expected = [
