@@ -15,17 +15,13 @@ final class SymfonyValidatorFactory
      * Create validation result from array with errors.
      *
      * @param ConstraintViolationList $violations The validation errors
-     * @param ValidationResult|null $result The result
      *
      * @return ValidationResult The result
      */
     public static function createValidationResult(
-        ConstraintViolationList $violations,
-        ValidationResult $result = null
+        ConstraintViolationList $violations
     ): ValidationResult {
-        if ($result === null) {
-            $result = new ValidationResult();
-        }
+        $result = new ValidationResult();
 
         /** @var ConstraintViolation $violation */
         foreach ($violations as $violation) {

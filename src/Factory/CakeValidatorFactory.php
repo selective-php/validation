@@ -13,15 +13,12 @@ final class CakeValidatorFactory
      * Create validation result from array with errors.
      *
      * @param array<mixed> $errors The validation errors
-     * @param ValidationResult|null $result The result
      *
      * @return ValidationResult The result
      */
-    public static function createValidationResult(array $errors, ValidationResult $result = null): ValidationResult
+    public static function createValidationResult(array $errors): ValidationResult
     {
-        if ($result === null) {
-            $result = new ValidationResult();
-        }
+        $result = new ValidationResult();
 
         static::addErrors($result, $errors);
 
