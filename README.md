@@ -16,10 +16,11 @@ A validation library for PHP that uses the [notification pattern](https://martin
 * [Usage](#usage)
   * [Validating form data](#validating-form-data)
   * [Validating JSON](#validating-json)
-* [Transformer](#transformer)
 * [Validators](#validators)
   * [CakePHP Validator](#cakephp-validator)
   * [Symfony Validator](#symfony-validator)
+* [Transformer](#transformer)
+* [License](#license)
 
 ## Requirements
 
@@ -193,7 +194,7 @@ $app->add(ValidationExceptionMiddleware::class);
 $app->run();
 ```
 
-#### Usage
+#### Usage in Slim
 
 ```php
 <?php
@@ -212,37 +213,6 @@ if (empty($data->username)) {
 if ($validation->isFailed()) {
     // Trigger the validation middleware
     throw new ValidationException('Please check your input', $validation);
-}
-```
-
-## Transformer
-
-If you want to implement a custom response data structure, 
-you can implement a custom transformer against the 
-`\Selective\Validation\Transformer\ResultTransformerInterface` interface.
-
-**Example**
-
-```php
-<?php
-
-namespace App\Transformer;
-
-use Selective\Validation\Exception\ValidationException;
-use Selective\Validation\Transformer\ResultTransformerInterface;
-use Selective\Validation\ValidationResult;
-
-final class MyValidationTransformer implements ResultTransformerInterface
-{
-    public function transform(
-        ValidationResult $validationResult, 
-        ValidationException $exception = null
-    ): array {
-        // Implement your own data structure for the response
-        // ...
-
-        return [];
-    }
 }
 ```
 
@@ -374,6 +344,37 @@ if ($this->existsUsername($formData['username'])) {
 
 if ($validationResult->isFailed()) {
     throw new ValidationException(__('Please check your input'), $validationResult);
+}
+```
+
+## Transformer
+
+If you want to implement a custom response data structure, 
+you can implement a custom transformer against the 
+`\Selective\Validation\Transformer\ResultTransformerInterface` interface.
+
+**Example**
+
+```php
+<?php
+
+namespace App\Transformer;
+
+use Selective\Validation\Exception\ValidationException;
+use Selective\Validation\Transformer\ResultTransformerInterface;
+use Selective\Validation\ValidationResult;
+
+final class MyValidationTransformer implements ResultTransformerInterface
+{
+    public function transform(
+        ValidationResult $validationResult, 
+        ValidationException $exception = null
+    ): array {
+        // Implement your own data structure for the response
+        // ...
+
+        return [];
+    }
 }
 ```
 
