@@ -32,7 +32,7 @@ final class CakeValidatorFactory
      * Add errors.
      *
      * @param ValidationResult $result The result
-     * @param array $errors The errors
+     * @param array<mixed> $errors The errors
      * @param string $path The path
      *
      * @return void
