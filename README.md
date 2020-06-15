@@ -9,6 +9,18 @@ A validation library for PHP that uses the [notification pattern](https://martin
 [![Quality Score](https://scrutinizer-ci.com/g/selective-php/validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/selective-php/validation/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/selective/validation.svg)](https://packagist.org/packages/selective/validation/stats)
 
+## Table of contents
+
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Validating form data](#validating-form-data)
+  * [Validating JSON](#validating-json)
+* [Transformer](#transformer)
+* [Validators](#validators)
+  * [CakePHP Validator](#cakephp-validator)
+  * [Symfony Validator](#symfony-validator)
+
 ## Requirements
 
 * PHP 7.2+
