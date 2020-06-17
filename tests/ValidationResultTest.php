@@ -108,9 +108,9 @@ class ValidationResultTest extends TestCase
         $errorFieldName = 'ERROR';
         $errorMessage = 'This is an error!';
         $val->addError($errorFieldName, $errorMessage);
-        $result = $val->getErrors();
-        $this->assertSame($result[0]->getField(), $errorFieldName);
-        $this->assertSame($result[0]->getMessage(), $errorMessage);
-        $this->assertNull($result[0]->getCode());
+        $result = $val->getErrors()[0];
+        $this->assertSame($errorFieldName, $result->getField());
+        $this->assertSame($errorMessage, $result->getMessage());
+        $this->assertNull($result->getCode());
     }
 }
