@@ -30,6 +30,6 @@ final class ErrorMiddleware implements MiddlewareInterface
 
         $validation->addError('username', 'Input required');
 
-        throw new ValidationException('Please check your input', $validation);
+        throw new ValidationException('Please check your input', $validation, 422);
     }
 }

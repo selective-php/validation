@@ -27,7 +27,7 @@ final class ValidationException extends DomainException
     public function __construct(
         string $message,
         ValidationResult $validationResult,
-        int $code = 0,
+        int $code = 422,
         Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);

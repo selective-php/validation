@@ -23,7 +23,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
      *
      * @return void
      */
-    public function testNoError()
+    public function testNoError(): void
     {
         $middleware = new ValidationExceptionMiddleware(
             new ResponseFactory(),
@@ -44,7 +44,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
      *
      * @return void
      */
-    public function testWithError()
+    public function testWithError(): void
     {
         $middleware = new ValidationExceptionMiddleware(
             new ResponseFactory(),
@@ -58,7 +58,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
         ]);
 
         static::assertSame(
-            '{"error":{"message":"Please check your input","details":' .
+            '{"error":{"message":"Please check your input","code":422,"details":' .
             '[{"message":"Input required","field":"username"}]}}',
             (string)$response->getBody()
         );
