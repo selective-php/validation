@@ -18,7 +18,7 @@ class ErrorDetailsTransformerTest extends TestCase
      *
      * @return void
      */
-    public function testTransform()
+    public function testTransform(): void
     {
         $transformer = new ErrorDetailsResultTransformer();
 
@@ -43,13 +43,5 @@ class ErrorDetailsTransformerTest extends TestCase
         ];
 
         static::assertSame($exptected, $actual);
-    }
-
-    /**
-     * Test.
-     */
-    public function testInvalidEncoding(): void
-    {
-        $this->assertTrue(true);
     }
 }

@@ -18,7 +18,7 @@ class JsonEncoderTest extends TestCase
      *
      * @return void
      */
-    public function testEncode()
+    public function testEncode(): void
     {
         $encoder = new JsonEncoder();
         $actual = $encoder->encode(['key' => 'value']);
