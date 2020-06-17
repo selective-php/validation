@@ -3,6 +3,7 @@ language: php
 php:
   - 7.2
   - 7.3
+  - 7.4
 
 dist: bionic
 
@@ -16,4 +17,4 @@ before_script:
   - cd $TRAVIS_BUILD_DIR
 
 script:
-  - composer check-all
+  - composer check
