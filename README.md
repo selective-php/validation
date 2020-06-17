@@ -89,7 +89,7 @@ if (empty($data['password'])) {
 }
 
 // Check validation result
-if ($validation->isFailed()) {
+if ($validation->fails()) {
     // Trigger error response (see validation middleware)
     throw new ValidationException('Please check your input', $validation);
 }
@@ -210,7 +210,7 @@ if (empty($data->username)) {
 }
 
 // Check validation result
-if ($validation->isFailed()) {
+if ($validation->fails()) {
     // Trigger the validation middleware
     throw new ValidationException('Please check your input', $validation);
 }
@@ -341,7 +341,7 @@ if ($this->existsUsername($formData['username'])) {
     $validationResult->addError('username', 'Username is already taken');
 }
 
-if ($validationResult->isFailed()) {
+if ($validationResult->fails()) {
     throw new ValidationException(__('Please check your input'), $validationResult);
 }
 ```

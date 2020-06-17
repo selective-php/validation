@@ -27,7 +27,7 @@ class TestService
             $validation->addError('id', 'invalid');
         }
 
-        if ($validation->isFailed()) {
+        if ($validation->fails()) {
             throw new ValidationException('Please check your input', $validation);
         }
 

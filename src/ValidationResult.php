@@ -39,11 +39,11 @@ final class ValidationResult
     }
 
     /**
-     * Returns the success of the validation.
+     * Determine if the data passes the validation rules.
      *
      * @return bool true if validation was successful; otherwise, false
      */
-    public function isSuccess(): bool
+    public function success(): bool
     {
         return empty($this->errors);
     }
@@ -53,9 +53,9 @@ final class ValidationResult
      *
      * @return bool Status
      */
-    public function isFailed(): bool
+    public function fails(): bool
     {
-        return !$this->isSuccess();
+        return !$this->success();
     }
 
     /**
