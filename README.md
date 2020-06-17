@@ -56,7 +56,7 @@ You can now test the `ValidationResult` and throw an exception if it contains er
 
 ```php
 <?php
-if ($validationResult->isFailed()) {
+if ($validationResult->fails()) {
     throw new ValidationException('Please check your input', $validationResult);
 }
 ```
@@ -109,7 +109,7 @@ $validation = new ValidationResult();
 
 // ...
 
-if ($validation->isFailed()) {
+if ($validation->fails()) {
     throw new ValidationException('Please check your input', $validation);
 }
 ```
@@ -267,7 +267,7 @@ if ($this->existsUsername($formData['username'])) {
     $validationResult->addError('username', 'Username is already taken);
 }
 
-if ($validationResult->isFailed()) {
+if ($validationResult->fails()) {
     throw new ValidationException('Validation failed. Please check your input.', $validationResult);
 }
 ```
