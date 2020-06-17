@@ -244,8 +244,7 @@ composer require cakephp/validation
 <?php
 
 use Cake\Validation\Validator;
-use Selective\Validation\Exception\ValidationException;
-use Selective\Validation\Factory\CakeValidatorFactory;
+use Selective\Validation\Converter\CakeValidationConverter;
 
 // Note: This is just an example. Don't use the $request object within the domain layer.
 $formData = (array)$request->getParsedBody();
@@ -260,7 +259,8 @@ $validator
     ->requirePresence('comment')
     ->notEmpty('comment', 'You need to give a comment.');
 
-$validationResult = CakeValidatorFactory::createValidationResult($validator->validate($formData));
+// Convert Cake validator errors to ValidationResult
+$validationResult = CakeValidationConverter::createValidationResult($validator->validate($formData));
 
 // Optional: Do more complex validation and append it to the validation result
 if ($this->existsUsername($formData['username'])) {
@@ -286,11 +286,10 @@ composer require symfony/validator
 <?php
 
 use Cake\Validation\Validator;
+use Selective\Validation\Converter\SymfonyValidationConverter;
 use Selective\Validation\Exception\ValidationException;
 use Selective\Validation\Regex\ValidationRegex;
-use Selective\Validation\Factory\SymfonyValidatorFactory;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validation;
 
 // Note: This is just an example. Don't use the $request object within the domain layer.
@@ -334,8 +333,8 @@ $constraint = new Assert\Collection(
 $constraint->missingFieldsMessage = 'Input required';
 $violations = $validator->validate($formData, $constraint);
 
-// Convert violations to ValidationResult
-$validationResult = SymfonyValidatorFactory::createValidationResult($violations);
+// Convert symfony violations to ValidationResult
+$validationResult = SymfonyValidationConverter::createValidationResult($violations);
 
 // Optional: Do more complex validation and append it to the validation result
 if ($this->existsUsername($formData['username'])) {
