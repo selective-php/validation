@@ -1,13 +1,13 @@
 <?php
 
-namespace Selective\Validation\Factory;
+namespace Selective\Validation\Converter;
 
 use Selective\Validation\ValidationResult;
 
 /**
- * CakePHP validation error collector.
+ * CakePHP validation error convert.
  */
-final class CakeValidatorFactory
+final class CakeValidationConverter
 {
     /**
      * Create validation result from array with errors.
@@ -31,8 +31,6 @@ final class CakeValidatorFactory
      * @param ValidationResult $result The result
      * @param array<mixed> $errors The errors
      * @param string $path The path
-     *
-     * @return void
      */
     private static function addErrors(ValidationResult $result, array $errors, string $path = ''): void
     {

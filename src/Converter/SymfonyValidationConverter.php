@@ -1,6 +1,6 @@
 <?php
 
-namespace Selective\Validation\Factory;
+namespace Selective\Validation\Converter;
 
 use Selective\Validation\ValidationResult;
 use Symfony\Component\Validator\ConstraintViolation;
@@ -9,7 +9,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 /**
  * Symfony validation error collector.
  */
-final class SymfonyValidatorFactory
+final class SymfonyValidationConverter
 {
     /**
      * Create validation result from array with errors.

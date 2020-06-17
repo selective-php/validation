@@ -1,9 +1,9 @@
 <?php
 
-namespace Selective\Validation\Test\Factory;
+namespace Selective\Validation\Test\Converter;
 
 use PHPUnit\Framework\TestCase;
-use Selective\Validation\Factory\CakeValidatorFactory;
+use Selective\Validation\Converter\CakeValidationConverter;
 use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Selective\Validation\ValidationResult;
 
@@ -31,7 +31,7 @@ class CakeValidationFactoryTest extends TestCase
      */
     public function testCreateResultFromErrorsSimple()
     {
-        $result = CakeValidatorFactory::createValidationResult([
+        $result = CakeValidationConverter::createValidationResult([
             'first_name' => [
                 '_empty' => 'This field cannot be left empty',
             ],
@@ -104,7 +104,7 @@ class CakeValidationFactoryTest extends TestCase
      */
     public function testCreateResultFromErrorsNestedArray()
     {
-        $result = CakeValidatorFactory::createValidationResult([
+        $result = CakeValidationConverter::createValidationResult([
             'bills' => [
                 0 => [
                     'billing_number' => [
