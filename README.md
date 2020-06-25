@@ -220,6 +220,9 @@ if ($validation->fails()) {
 
 You can combine this library with a validator that is doing the actual validation of your input data.
 
+The [converter pattern](https://java-design-patterns.com/patterns/converter/) makes it easy to map 
+instances of one class into instances of another class.
+
 ### CakePHP Validator
 
 The [cakephp/validation](https://github.com/cakephp/validation) library provides features to 
