@@ -267,7 +267,7 @@ $validationResult = CakeValidationConverter::createValidationResult($validator->
 
 // Optional: Do more complex validation and append it to the validation result
 if ($this->existsUsername($formData['username'])) {
-    $validationResult->addError('username', 'Username is already taken);
+    $validationResult->addError('username', 'Username is already taken');
 }
 
 if ($validationResult->fails()) {
@@ -345,7 +345,7 @@ if ($this->existsUsername($formData['username'])) {
 }
 
 if ($validationResult->fails()) {
-    throw new ValidationException(__('Please check your input'), $validationResult);
+    throw new ValidationException('Please check your input', $validationResult);
 }
 ```
 
