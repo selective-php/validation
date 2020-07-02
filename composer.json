@@ -12,7 +12,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "psr/http-factory": "^1.0",
         "psr/http-server-middleware": "^1.0"
     },
@@ -21,7 +21,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "overtrue/phplint": "^1.1",
         "phpstan/phpstan": "^0.12",
-        "phpunit/phpunit": "^7 || ^8 || ^9",
+        "phpunit/phpunit": "^8 || ^9",
         "relay/relay": "^2.0",
         "slim/psr7": "^1",
         "squizlabs/php_codesniffer": "^3.4",
@@ -41,8 +41,8 @@
         "phpstan": "phpstan analyse src --level=max -c phpstan.neon --no-progress --ansi",
         "sniffer:check": "phpcs --standard=phpcs.xml",
         "sniffer:fix": "phpcbf --standard=phpcs.xml",
-        "test": "phpunit --configuration phpunit.xml --do-not-cache-result --colors=always",
-        "test:coverage": "phpunit --configuration phpunit.xml --do-not-cache-result --colors=always --coverage-clover build/logs/clover.xml --coverage-html build/coverage"
+        "test": "phpunit --configuration phpunit.xml --do-not-cache-result",
+        "test:coverage": "phpunit --configuration phpunit.xml --do-not-cache-result --coverage-clover build/logs/clover.xml --coverage-html build/coverage"
     },
     "autoload": {
         "psr-4": {

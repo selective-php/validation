@@ -35,8 +35,8 @@ class ValidationExceptionMiddlewareTest extends TestCase
             $middleware,
         ]);
 
-        static::assertSame('', (string)$response->getBody());
-        static::assertSame(200, $response->getStatusCode());
+        $this->assertSame('', (string)$response->getBody());
+        $this->assertSame(200, $response->getStatusCode());
     }
 
     /**
@@ -57,18 +57,18 @@ class ValidationExceptionMiddlewareTest extends TestCase
             new ErrorMiddleware(),
         ]);
 
-        static::assertSame(
+        $this->assertSame(
             '{"error":{"message":"Please check your input","code":422,"details":' .
             '[{"message":"Input required","field":"username"}]}}',
             (string)$response->getBody()
         );
 
-        static::assertSame(
+        $this->assertSame(
             StatusCodeInterface::STATUS_UNPROCESSABLE_ENTITY,
             $response->getStatusCode()
         );
 
-        static::assertSame(
+        $this->assertSame(
             'application/json',
             $response->getHeaderLine('content-type')
         );

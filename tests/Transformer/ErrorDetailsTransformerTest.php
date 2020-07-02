@@ -24,13 +24,13 @@ class ErrorDetailsTransformerTest extends TestCase
 
         $validationResult = new ValidationResult();
         $actual = $transformer->transform($validationResult);
-        static::assertSame(['error' => []], $actual);
+        $this->assertSame(['error' => []], $actual);
 
         $validationResult = new ValidationResult();
         $validationResult->addError('email', 'required', '100');
         $actual = $transformer->transform($validationResult);
 
-        $exptected = [
+        $expected = [
             'error' => [
                 'details' => [
                     [
@@ -42,6 +42,6 @@ class ErrorDetailsTransformerTest extends TestCase
             ],
         ];
 
-        static::assertSame($exptected, $actual);
+        $this->assertSame($expected, $actual);
     }
 }

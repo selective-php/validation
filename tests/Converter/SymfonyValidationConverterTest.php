@@ -22,9 +22,9 @@ class SymfonyValidationConverterTest extends TestCase
 
         $result = SymfonyValidationConverter::createValidationResult($violations);
 
-        $this->assertEquals(true, $result->fails());
+        $this->assertTrue($result->fails());
         $this->assertEquals('Email required', $result->getErrors()[0]->getMessage());
         $this->assertEquals('email', $result->getErrors()[0]->getField());
-        $this->assertEquals(null, $result->getErrors()[0]->getCode());
+        $this->assertNull($result->getErrors()[0]->getCode());
     }
 }
