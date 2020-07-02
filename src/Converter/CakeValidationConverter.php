@@ -37,16 +37,26 @@ final class CakeValidationConverter
         foreach ($errors as $field => $error) {
             $oldPath = $path;
             $path .= ($path === '' ? '' : '.') . $field;
-
-            foreach ($error as $field2 => $errorMessage) {
-                if (is_array($errorMessage)) {
-                    static::addErrors($result, [$field2 => $errorMessage], $path);
-                } else {
-                    $result->addError($path, $errorMessage);
-                }
-            }
-
+            static::addSubErrors($result, $error, $path);
             $path = $oldPath;
+        }
+    }
+
+    /**
+     * Add sub errors.
+     *
+     * @param ValidationResult $result The result
+     * @param array<mixed> $error The error
+     * @param string $path The path
+     */
+    private static function addSubErrors(ValidationResult $result, array $error, string $path = ''): void
+    {
+        foreach ($error as $field2 => $errorMessage) {
+            if (is_array($errorMessage)) {
+                static::addErrors($result, [$field2 => $errorMessage], $path);
+            } else {
+                $result->addError($path, $errorMessage);
+            }
         }
     }
 }
