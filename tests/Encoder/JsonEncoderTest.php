@@ -23,7 +23,7 @@ class JsonEncoderTest extends TestCase
         $encoder = new JsonEncoder();
         $actual = $encoder->encode(['key' => 'value']);
 
-        static::assertSame('{"key":"value"}', $actual);
+        $this->assertSame('{"key":"value"}', $actual);
     }
 
     /**
