@@ -34,7 +34,7 @@ composer require selective/validation
 
 ## Usage
 
-> A Notification collects together errors
+> A notification is a collection of errors
 
 In order to use a notification, you have to create the `ValidationResult` object. 
 A `ValidationResult` can be really simple:
