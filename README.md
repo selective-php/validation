@@ -146,7 +146,7 @@ use Slim\Factory\AppFactory;
 // ...
 
 return [
-    ValidationExceptionMiddleware::class => static function (ContainerInterface $container) {
+    ValidationExceptionMiddleware::class => function (ContainerInterface $container) {
         $factory = $container->get(ResponseFactoryInterface::class);
 
         return new ValidationExceptionMiddleware(
@@ -156,13 +156,13 @@ return [
         );
     },
 
-    ResponseFactoryInterface::class => static function (ContainerInterface $container) {
+    ResponseFactoryInterface::class => function (ContainerInterface $container) {
         $app = $container->get(App::class);
 
         return $app->getResponseFactory();
     },
 
-    App::class => static function (ContainerInterface $container) {
+    App::class => function (ContainerInterface $container) {
         AppFactory::setContainer($container);
 
         return AppFactory::create();
