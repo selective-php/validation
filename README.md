@@ -228,7 +228,7 @@ instances of one class into instances of another class.
 The [cakephp/validation](https://github.com/cakephp/validation) library provides features to 
 build validators that can validate arbitrary arrays of data with ease. 
 
-The `$validator->errors()` method will return a non-empty array when there are validation failures. 
+The `$validator->validate()` method will return a non-empty array when there are validation failures. 
 The returned array of errors then can be converted into a `ValidationResult` 
 using the `CakeValidationErrorCollector`.
 
@@ -274,6 +274,8 @@ if ($validationResult->fails()) {
     throw new ValidationException('Validation failed. Please check your input.', $validationResult);
 }
 ```
+
+**Read more:** <https://odan.github.io/2020/10/18/slim4-cakephp-validation.html>
 
 ### Symfony Validator
 
