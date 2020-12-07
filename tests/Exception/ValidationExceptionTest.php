@@ -9,7 +9,7 @@ use Selective\Validation\Test\TestService;
 /**
  * Tests.
  *
- * @coversDefaultClass \Selective\Validation\ValidationExceptionTest
+ * @coversDefaultClass \Selective\Validation\Exception\ValidationException
  */
 class ValidationExceptionTest extends TestCase
 {
