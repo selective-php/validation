@@ -47,7 +47,7 @@ final class ValidationError
      *
      * @param string $field The field name
      *
-     * @return self self
+     * @return self The same instance
      */
     public function setField(string $field): self
     {
@@ -69,9 +69,11 @@ final class ValidationError
     /**
      * Set the field name.
      *
-     * @param mixed $code The error code
+     * @param string|null $code The error code
+     *
+     * @return self The same instance
      */
-    public function setCode($code): self
+    public function setCode(?string $code): self
     {
         $this->code = $code;
 
