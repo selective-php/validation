@@ -24,7 +24,7 @@ A validation library for PHP that uses the [notification pattern](https://martin
 
 ## Requirements
 
-* PHP 7.2+
+* PHP 7.2+ or 8.0+
 
 ## Installation
 
@@ -97,7 +97,8 @@ if ($validation->fails()) {
 
 ### Validating JSON
 
-Validating a JSON request works like validating form data, because in PHP it's just an array from the request object.
+Validating a JSON request works like validating form data, 
+because in PHP it's just an array from the request object.
 
 ```php
 <?php

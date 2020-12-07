@@ -12,9 +12,9 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.2",
-        "psr/http-factory": "^1.0",
-        "psr/http-server-middleware": "^1.0"
+        "php": "^7.2 || ^8.0",
+        "psr/http-factory": "^1.0.1",
+        "psr/http-server-middleware": "^1.0.1"
     },
     "require-dev": {
         "fig/http-message-util": "^1.1",
@@ -24,7 +24,7 @@
         "phpunit/phpunit": "^8 || ^9",
         "relay/relay": "^2.0",
         "slim/psr7": "^1",
-        "squizlabs/php_codesniffer": "^3.4",
+        "squizlabs/php_codesniffer": "^3.5",
         "symfony/validator": "^5.1"
     },
     "scripts": {
