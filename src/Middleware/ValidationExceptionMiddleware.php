@@ -65,9 +65,12 @@ final class ValidationExceptionMiddleware implements MiddlewareInterface
                 ->withStatus(422)
                 ->withHeader('Content-Type', 'application/json');
 
-            $data = $this->transformer->transform($exception->getValidationResult(), $exception);
-            $content = $this->encoder->encode($data);
-            $response->getBody()->write($content);
+            $validationResult = $exception->getValidationResult();
+            if ($validationResult) {
+                $data = $this->transformer->transform($validationResult, $exception);
+                $content = $this->encoder->encode($data);
+                $response->getBody()->write($content);
+            }
 
             return $response;
         }

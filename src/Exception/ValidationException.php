@@ -12,7 +12,7 @@ use Throwable;
 final class ValidationException extends DomainException
 {
     /**
-     * @var ValidationResult
+     * @var ValidationResult|null
      */
     private $validationResult;
 
@@ -20,13 +20,13 @@ final class ValidationException extends DomainException
      * Construct the exception.
      *
      * @param string $message The Exception message to throw
-     * @param ValidationResult $validationResult The validation result object
+     * @param ValidationResult|null $validationResult The validation result object
      * @param int $code The Exception code
      * @param Throwable|null $previous The previous throwable used for the exception chaining
      */
     public function __construct(
         string $message,
-        ValidationResult $validationResult,
+        ValidationResult $validationResult = null,
         int $code = 422,
         Throwable $previous = null
     ) {
@@ -38,9 +38,9 @@ final class ValidationException extends DomainException
     /**
      * Get the validation result.
      *
-     * @return ValidationResult The validation result
+     * @return ValidationResult|null The validation result
      */
-    public function getValidationResult(): ValidationResult
+    public function getValidationResult(): ?ValidationResult
     {
         return $this->validationResult;
     }
