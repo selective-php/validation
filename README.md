@@ -42,7 +42,7 @@ A `ValidationResult` can be really simple:
 ```php
 <?php
 
-use Selective\Validation\ValidationException;
+use Selective\Validation\Exception\ValidationException;
 use Selective\Validation\ValidationResult;
 
 $validationResult = new ValidationResult();
@@ -68,7 +68,7 @@ Login example:
 ```php
 <?php
 
-use Selective\Validation\ValidationException;
+use Selective\Validation\Exception\ValidationException;
 use Selective\Validation\ValidationResult;
 
 // ...
@@ -102,6 +102,7 @@ because in PHP it's just an array from the request object.
 
 ```php
 <?php
+use Selective\Validation\ValidationResult;
 
 // Fetch json data from request as array
 $jsonData = (array)$request->getParsedBody();
