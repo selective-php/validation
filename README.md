@@ -34,7 +34,7 @@ composer require selective/validation
 
 ## Usage
 
-> A Notification collects together errors
+> A notification is a collection of errors
 
 In order to use a notification, you have to create the `ValidationResult` object. 
 A `ValidationResult` can be really simple:
@@ -147,7 +147,7 @@ use Slim\Factory\AppFactory;
 // ...
 
 return [
-    ValidationExceptionMiddleware::class => static function (ContainerInterface $container) {
+    ValidationExceptionMiddleware::class => function (ContainerInterface $container) {
         $factory = $container->get(ResponseFactoryInterface::class);
 
         return new ValidationExceptionMiddleware(
@@ -157,13 +157,13 @@ return [
         );
     },
 
-    ResponseFactoryInterface::class => static function (ContainerInterface $container) {
+    ResponseFactoryInterface::class => function (ContainerInterface $container) {
         $app = $container->get(App::class);
 
         return $app->getResponseFactory();
     },
 
-    App::class => static function (ContainerInterface $container) {
+    App::class => function (ContainerInterface $container) {
         AppFactory::setContainer($container);
 
         return AppFactory::create();
@@ -229,7 +229,7 @@ instances of one class into instances of another class.
 The [cakephp/validation](https://github.com/cakephp/validation) library provides features to 
 build validators that can validate arbitrary arrays of data with ease. 
 
-The `$validator->errors()` method will return a non-empty array when there are validation failures. 
+The `$validator->validate()` method will return a non-empty array when there are validation failures. 
 The returned array of errors then can be converted into a `ValidationResult` 
 using the `CakeValidationErrorCollector`.
 
@@ -275,6 +275,8 @@ if ($validationResult->fails()) {
     throw new ValidationException('Validation failed. Please check your input.', $validationResult);
 }
 ```
+
+**Read more:** <https://odan.github.io/2020/10/18/slim4-cakephp-validation.html>
 
 ### Symfony Validator
 
