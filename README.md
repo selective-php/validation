@@ -226,14 +226,8 @@ class into instances of another class.
 
 ### CakePHP Validator
 
-The [cakephp/validation](https://github.com/cakephp/validation) library provides features to build validators that can
-validate arbitrary arrays of data with ease.
-
-The `$validator->validate()` method will return a non-empty array when there are validation failures. The returned array
-of errors then can be converted into a `ValidationResult`
-using the `CakeValidationErrorCollector`.
-
-For example, if you wanted to validate a contact form before creating and sending an email you could do the following.
+The [cakephp/validation](https://github.com/cakephp/validation) library provides features 
+to build validators that can validate arbitrary arrays of data with ease.
 
 **Installation**
 
@@ -243,10 +237,12 @@ composer require cakephp/validation
 
 **Usage**
 
-The `CakeValidationFactory` class to simplifies the validation handling.
-Please note: In real life the `CakeValidationFactory` should be injected via constructor.
+The `Cake\Validation\Validator::validate()` method returns a non-empty array when 
+there are validation failures. The list of errors then can be converted into 
+a `ValidationResult` using the `Selective\Validation\Factory\CakeValidationFactory`
+or `Selective\Validation\Converter\CakeValidationConverter`.
 
-**Factory usage**
+For example, if you want to validate a login form you could do the following:
 
 ```php
 use Selective\Validation\Factory\CakeValidationFactory;
@@ -272,6 +268,8 @@ if ($validationResult->fails()) {
     throw new ValidationException('Please check your input', $validationResult);
 }
 ```
+
+Please note: The `CakeValidationFactory` should be injected via constructor.
 
 **Read more:** <https://odan.github.io/2020/10/18/slim4-cakephp-validation.html>
 
