@@ -1,6 +1,7 @@
 # Validation
 
-A validation library for PHP that uses the [notification pattern](https://martinfowler.com/articles/replaceThrowWithNotification.html).
+A validation library for PHP that uses
+the [notification pattern](https://martinfowler.com/articles/replaceThrowWithNotification.html).
 
 [![Latest Version on Packagist](https://img.shields.io/github/release/selective-php/validation.svg)](https://packagist.org/packages/selective/validation)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
@@ -14,11 +15,11 @@ A validation library for PHP that uses the [notification pattern](https://martin
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Usage](#usage)
-  * [Validating form data](#validating-form-data)
-  * [Validating JSON](#validating-json)
+    * [Validating form data](#validating-form-data)
+    * [Validating JSON](#validating-json)
 * [Validators](#validators)
-  * [CakePHP Validator](#cakephp-validator)
-  * [Symfony Validator](#symfony-validator)
+    * [CakePHP Validator](#cakephp-validator)
+    * [Symfony Validator](#symfony-validator)
 * [Transformer](#transformer)
 * [License](#license)
 
@@ -36,8 +37,8 @@ composer require selective/validation
 
 > A notification is a collection of errors
 
-In order to use a notification, you have to create the `ValidationResult` object. 
-A `ValidationResult` can be really simple:
+In order to use a notification, you have to create the `ValidationResult` object. A `ValidationResult` can be really
+simple:
 
 ```php
 <?php
@@ -97,8 +98,7 @@ if ($validation->fails()) {
 
 ### Validating JSON
 
-Validating a JSON request works like validating form data, 
-because in PHP it's just an array from the request object.
+Validating a JSON request works like validating form data, because in PHP it's just an array from the request object.
 
 ```php
 <?php
@@ -128,8 +128,7 @@ $jsonData = (array)json_decode(file_get_contents('php://input'), true);
 
 ### Middleware
 
-The `ValidationExceptionMiddleware` PSR-15 middleware catches all exceptions and converts 
-it into a nice JSON response.
+The `ValidationExceptionMiddleware` PSR-15 middleware catches all exceptions and converts it into a nice JSON response.
 
 #### Slim 4 integration
 
@@ -222,20 +221,19 @@ if ($validation->fails()) {
 
 You can combine this library with a validator that is doing the actual validation of your input data.
 
-The [converter pattern](https://java-design-patterns.com/patterns/converter/) makes it easy to map 
-instances of one class into instances of another class.
+The [converter pattern](https://java-design-patterns.com/patterns/converter/) makes it easy to map instances of one
+class into instances of another class.
 
 ### CakePHP Validator
 
-The [cakephp/validation](https://github.com/cakephp/validation) library provides features to 
-build validators that can validate arbitrary arrays of data with ease. 
+The [cakephp/validation](https://github.com/cakephp/validation) library provides features to build validators that can
+validate arbitrary arrays of data with ease.
 
-The `$validator->validate()` method will return a non-empty array when there are validation failures. 
-The returned array of errors then can be converted into a `ValidationResult` 
+The `$validator->validate()` method will return a non-empty array when there are validation failures. The returned array
+of errors then can be converted into a `ValidationResult`
 using the `CakeValidationErrorCollector`.
 
-For example, if you wanted to validate a contact form before creating and sending 
-an email you could do the following.
+For example, if you wanted to validate a contact form before creating and sending an email you could do the following.
 
 **Installation**
 
@@ -245,35 +243,33 @@ composer require cakephp/validation
 
 **Usage**
 
+The `CakeValidationFactory` class to simplifies the validation handling.
+Please note: In real life the `CakeValidationFactory` should be injected via constructor.
+
+**Factory usage**
+
 ```php
-<?php
+use Selective\Validation\Factory\CakeValidationFactory;
+use Selective\Validation\Exception\ValidationException;
+// ...
 
-use Cake\Validation\Validator;
-use Selective\Validation\Converter\CakeValidationConverter;
+// Within the Action class: fetch the request data, e.g. from a JSON request
+$data = (array)$request->getParsedBody();
 
-// Note: This is just an example. Don't use the $request object within the domain layer.
-$formData = (array)$request->getParsedBody();
+// Within the Application Service class: Do the validation
+$validationFactory = new CakeValidationFactory();
+$validator = $validationFactory->createValidator();
 
-// Basic form or json validation
-$validator = new Validator();
 $validator
-    ->requirePresence('email')
-    ->email('email', 'E-mail must be valid')
-    ->requirePresence('name')
-    ->notEmpty('name', 'We need your name.')
-    ->requirePresence('comment')
-    ->notEmpty('comment', 'You need to give a comment.');
+    ->notEmptyString('username', 'Input required')
+    ->notEmptyString('password', 'Input required');
 
-// Convert Cake validator errors to ValidationResult
-$validationResult = CakeValidationConverter::createValidationResult($validator->validate($formData));
-
-// Optional: Do more complex validation and append it to the validation result
-if ($this->existsUsername($formData['username'])) {
-    $validationResult->addError('username', 'Username is already taken');
-}
+$validationResult = $validationFactory->createValidationResult(
+    $validator->validate($data)
+);
 
 if ($validationResult->fails()) {
-    throw new ValidationException('Validation failed. Please check your input.', $validationResult);
+    throw new ValidationException('Please check your input', $validationResult);
 }
 ```
 
@@ -292,7 +288,6 @@ composer require symfony/validator
 ```php
 <?php
 
-use Cake\Validation\Validator;
 use Selective\Validation\Converter\SymfonyValidationConverter;
 use Selective\Validation\Exception\ValidationException;
 use Selective\Validation\Regex\ValidationRegex;
@@ -302,7 +297,9 @@ use Symfony\Component\Validator\Validation;
 // Note: This is just an example. Don't use the $request object within the domain layer.
 $formData = (array)$request->getParsedBody();
 
-// Create a symfony validator instance
+// ...
+
+// Create a Symfony validator instance
 $validator = Validation::createValidator();
 
 // Add rules
@@ -356,7 +353,7 @@ if ($validationResult->fails()) {
 ## Transformer
 
 If you want to implement a custom response data structure, 
-you can implement a custom transformer against the 
+you can implement a custom transformer against the
 `\Selective\Validation\Transformer\ResultTransformerInterface` interface.
 
 **Example**
