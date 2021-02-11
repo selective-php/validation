@@ -11,6 +11,19 @@ use Selective\Validation\ValidationError;
  */
 class CakeValidationFactoryTest extends TestCase
 {
+
+    /**
+     * Test.
+     *
+     * @return void
+     */
+    public function testCreateValidator()
+    {
+        (new CakeValidationFactory())->createValidator();
+
+        $this->assertTrue(true);
+    }
+
     /**
      * Test.
      *
