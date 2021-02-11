@@ -11,7 +11,6 @@ use Selective\Validation\ValidationError;
  */
 class CakeValidationFactoryTest extends TestCase
 {
-
     /**
      * Test.
      *
