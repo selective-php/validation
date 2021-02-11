@@ -17,6 +17,7 @@ the [notification pattern](https://martinfowler.com/articles/replaceThrowWithNot
 * [Usage](#usage)
     * [Validating form data](#validating-form-data)
     * [Validating JSON](#validating-json)
+    * [Regex](#regex)
 * [Validators](#validators)
     * [CakePHP Validator](#cakephp-validator)
     * [Symfony Validator](#symfony-validator)
@@ -126,6 +127,29 @@ $jsonData = (array)json_decode(file_get_contents('php://input'), true);
 // ...
 ```
 
+### Regex
+
+The `Selective\Validation\Regex\ValidationRegex` class allows you to validate if
+a given string conforms a defined regular expression.
+
+**Example usage:**
+
+```php
+use Selective\Validation\Factory\CakeValidationFactory;
+use Selective\Validation\Regex\ValidationRegex;
+// ...
+
+$data = [ /* ... */ ];
+
+$validationFactory = new CakeValidationFactory();
+$validator = $validationFactory->createValidator();
+
+$validator
+    ->regex('id', ValidationRegex::ID, 'Invalid')
+    ->regex('country', ValidationRegex::COUNTRY_ISO_2, 'Invalid country')
+    ->regex('date_of_birth', ValidationRegex::DATE_DMY, 'Invalid date format');
+```
+
 ### Middleware
 
 The `ValidationExceptionMiddleware` PSR-15 middleware catches all exceptions and converts it into a nice JSON response.
@@ -174,7 +198,7 @@ return [
 ];
 ```
 
-Add the `ValidationExceptionMiddleware` into your middlware stack:
+Add the `ValidationExceptionMiddleware` into your middleware stack:
 
 ```php
 <?php

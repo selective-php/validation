@@ -43,12 +43,17 @@ final class ValidationRegex
     const ID = '/^[1-9][0-9]*$/';
 
     /**
-     * Numeric postal code. Can start with 0. Not for canada.
+     * Generic UUID.
      */
-    const POSTAL_CODE = '/^[\d]{4}$/';
+    const UUID = '/^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/';
 
     /**
-     * Canada postal code.
+     * Postal code. Can start with 0. Not for canada.
      */
-    const POSTAL_CODE_CANADA = '/^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$/';
+    const POSTAL_CODE = '/^[\d]{4,}$/';
+
+    /**
+     * Positive float.
+     */
+    const POSITIVE_FLOAT = '/^([\d]*[.])?[\d]+$/';
 }
