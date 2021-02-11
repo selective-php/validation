@@ -15,6 +15,21 @@ use Selective\Validation\ValidationResult;
 final class ErrorMiddleware implements MiddlewareInterface
 {
     /**
+     * @var int
+     */
+    private $code;
+
+    /**
+     * ErrorMiddleware constructor.
+     *
+     * @param int $code Exception code
+     */
+    public function __construct(int $code)
+    {
+        $this->code = $code;
+    }
+
+    /**
      * Invoke middleware.
      *
      * @param ServerRequestInterface $request The request
@@ -30,6 +45,6 @@ final class ErrorMiddleware implements MiddlewareInterface
 
         $validation->addError('username', 'Input required');
 
-        throw new ValidationException('Please check your input', $validation, 422);
+        throw new ValidationException('Please check your input', $validation, $this->code);
     }
 }
