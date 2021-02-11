@@ -49,7 +49,7 @@ final class ErrorDetailsResultTransformer implements ResultTransformerInterface
         }
 
         $errors = $validationResult->getErrors();
-        if ($errors) {
+        if (!empty($errors)) {
             $error[$this->detailsName] = $this->getErrorDetails($errors);
         }
 
