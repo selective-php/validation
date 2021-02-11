@@ -54,7 +54,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
 
         $response = $this->runQueue([
             $middleware,
-            new ErrorMiddleware(),
+            new ErrorMiddleware(StatusCodeInterface::STATUS_UNPROCESSABLE_ENTITY),
         ]);
 
         $this->assertSame(
@@ -65,6 +65,41 @@ class ValidationExceptionMiddlewareTest extends TestCase
 
         $this->assertSame(
             StatusCodeInterface::STATUS_UNPROCESSABLE_ENTITY,
+            $response->getStatusCode()
+        );
+
+        $this->assertSame(
+            'application/json',
+            $response->getHeaderLine('content-type')
+        );
+    }
+
+    /**
+     * Test.
+     *
+     * @return void
+     */
+    public function testWithCustomStatusCode(): void
+    {
+        $middleware = new ValidationExceptionMiddleware(
+            new ResponseFactory(),
+            new ErrorDetailsResultTransformer(),
+            new JsonEncoder()
+        );
+
+        $response = $this->runQueue([
+            $middleware,
+            new ErrorMiddleware(StatusCodeInterface::STATUS_OK),
+        ]);
+
+        $this->assertSame(
+            '{"error":{"message":"Please check your input","code":200,"details":' .
+            '[{"message":"Input required","field":"username"}]}}',
+            (string)$response->getBody()
+        );
+
+        $this->assertSame(
+            StatusCodeInterface::STATUS_OK,
             $response->getStatusCode()
         );
 
