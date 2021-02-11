@@ -109,7 +109,7 @@ class CakeValidationFactoryTest extends TestCase
     /**
      * Convert to array.
      *
-     * @param ValidationError $error
+     * @param ValidationError $error The error
      *
      * @return array Data
      */
