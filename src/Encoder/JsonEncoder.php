@@ -30,4 +30,14 @@ final class JsonEncoder implements EncoderInterface
 
         return $result;
     }
+
+    /**
+     * Return MIME compatible content type.
+     *
+     * @return string Response content type
+     */
+    public function getContentType(): string
+    {
+        return 'application/json';
+    }
 }
