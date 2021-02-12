@@ -38,4 +38,14 @@ class JsonEncoderTest extends TestCase
         $encoder = new JsonEncoder();
         $encoder->encode(['key' => "\x00\x81"]);
     }
+
+    /**
+     * Test.
+     */
+    public function testContentType(): void
+    {
+        $encoder = new JsonEncoder();
+
+        $this->assertEquals('application/json', $encoder->getContentType());
+    }
 }

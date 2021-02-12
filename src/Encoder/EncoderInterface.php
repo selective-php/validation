@@ -19,4 +19,11 @@ interface EncoderInterface
      * @return string The encoded string
      */
     public function encode($data): string;
+
+    /**
+     * Return MIME compatible content type.
+     *
+     * @return string Response content type
+     */
+    public function getContentType(): string;
 }
