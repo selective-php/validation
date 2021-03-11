@@ -152,7 +152,7 @@ $validator
 
 ### Middleware
 
-The `ValidationExceptionMiddleware` PSR-15 middleware catches all exceptions and converts it into a nice JSON response.
+The `ValidationExceptionMiddleware` catches the `ValidationException` and converts it into a nice JSON response.
 
 #### Slim 4 integration
 
