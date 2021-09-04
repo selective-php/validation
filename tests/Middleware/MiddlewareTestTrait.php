@@ -2,10 +2,10 @@
 
 namespace Selective\Validation\Test\Middleware;
 
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Relay\Relay;
-use Slim\Psr7\Factory\ServerRequestFactory;
 
 /**
  * Test.
@@ -34,6 +34,6 @@ trait MiddlewareTestTrait
      */
     protected function createRequest(): ServerRequestInterface
     {
-        return (new ServerRequestFactory())->createServerRequest('GET', '/');
+        return (new Psr17Factory())->createServerRequest('GET', '/');
     }
 }

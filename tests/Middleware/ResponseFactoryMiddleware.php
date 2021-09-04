@@ -2,11 +2,11 @@
 
 namespace Selective\Validation\Test\Middleware;
 
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Slim\Psr7\Factory\ResponseFactory;
 
 /**
  * Middleware.
@@ -23,6 +23,6 @@ final class ResponseFactoryMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        return (new ResponseFactory())->createResponse();
+        return (new Psr17Factory())->createResponse();
     }
 }

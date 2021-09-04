@@ -3,11 +3,11 @@
 namespace Selective\Validation\Test\Middleware;
 
 use Fig\Http\Message\StatusCodeInterface;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
 use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
-use Slim\Psr7\Factory\ResponseFactory;
 
 /**
  * Tests.
@@ -26,7 +26,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
     public function testNoError(): void
     {
         $middleware = new ValidationExceptionMiddleware(
-            new ResponseFactory(),
+            new Psr17Factory(),
             new ErrorDetailsResultTransformer(),
             new JsonEncoder()
         );
@@ -47,7 +47,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
     public function testWithError(): void
     {
         $middleware = new ValidationExceptionMiddleware(
-            new ResponseFactory(),
+            new Psr17Factory(),
             new ErrorDetailsResultTransformer(),
             new JsonEncoder()
         );
@@ -82,7 +82,7 @@ class ValidationExceptionMiddlewareTest extends TestCase
     public function testWithCustomStatusCode(): void
     {
         $middleware = new ValidationExceptionMiddleware(
-            new ResponseFactory(),
+            new Psr17Factory(),
             new ErrorDetailsResultTransformer(),
             new JsonEncoder()
         );
