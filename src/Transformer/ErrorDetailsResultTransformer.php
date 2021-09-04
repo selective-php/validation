@@ -32,7 +32,7 @@ final class ErrorDetailsResultTransformer implements ResultTransformerInterface
      * @param ValidationResult $validationResult The validation result
      * @param ValidationException|null $exception The validation exception
      *
-     * @return array<mixed> The transformed result
+     * @return array The transformed result
      */
     public function transform(ValidationResult $validationResult, ValidationException $exception = null): array
     {
@@ -61,7 +61,7 @@ final class ErrorDetailsResultTransformer implements ResultTransformerInterface
      *
      * @param ValidationError[] $errors The errors
      *
-     * @return array<mixed> The details as array
+     * @return array The details as array
      */
     private function getErrorDetails(array $errors): array
     {

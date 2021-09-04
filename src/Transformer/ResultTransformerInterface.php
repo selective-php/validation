@@ -16,7 +16,7 @@ interface ResultTransformerInterface
      * @param ValidationResult $validationResult The validation result
      * @param ValidationException|null $exception The validation exception
      *
-     * @return array<mixed> The transformed result
+     * @return array The transformed result
      */
     public function transform(ValidationResult $validationResult, ValidationException $exception = null): array;
 }
