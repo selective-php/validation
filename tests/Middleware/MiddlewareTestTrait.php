@@ -15,7 +15,7 @@ trait MiddlewareTestTrait
     /**
      * Run middleware stack.
      *
-     * @param array<mixed> $queue The queue
+     * @param array $queue The queue
      *
      * @return ResponseInterface The response
      */
