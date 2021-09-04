@@ -20,7 +20,6 @@ the [notification pattern](https://martinfowler.com/articles/replaceThrowWithNot
     * [Regex](#regex)
 * [Validators](#validators)
     * [CakePHP Validator](#cakephp-validator)
-    * [Symfony Validator](#symfony-validator)
 * [Transformer](#transformer)
 * [License](#license)
 
