@@ -3,13 +3,11 @@
 namespace Selective\Validation\Factory;
 
 use Cake\Validation\Validator;
-use Selective\Validation\Converter\CakeValidationConverter;
+use Selective\Validation\Converter\CakeValidationValidationConverter;
 use Selective\Validation\ValidationResult;
 
 /**
  * Cake Validation factory.
- *
- * @deprecated
  */
 final class CakeValidationFactory
 {
@@ -32,6 +30,6 @@ final class CakeValidationFactory
      */
     public function createValidationResult(array $errors): ValidationResult
     {
-        return (new CakeValidationConverter())->createValidationResult($errors);
+        return (new CakeValidationValidationConverter())->createValidationResult($errors);
     }
 }

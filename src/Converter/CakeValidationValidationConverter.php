@@ -7,20 +7,20 @@ use Selective\Validation\ValidationResult;
 /**
  * CakePHP validation error convert.
  */
-final class CakeValidationConverter
+final class CakeValidationValidationConverter implements ValidationConverterInterface
 {
     /**
      * Create validation result from array with errors.
      *
-     * @param array<mixed> $errors The validation errors
+     * @param array $errors The validation errors
      *
      * @return ValidationResult The result
      */
-    public static function createValidationResult(array $errors): ValidationResult
+    public function createValidationResult($errors): ValidationResult
     {
         $result = new ValidationResult();
 
-        static::addErrors($result, $errors);
+        $this->addErrors($result, (array)$errors);
 
         return $result;
     }
@@ -29,15 +29,17 @@ final class CakeValidationConverter
      * Add errors.
      *
      * @param ValidationResult $result The result
-     * @param array<mixed> $errors The errors
+     * @param array $errors The errors
      * @param string $path The path
+     *
+     * @return void
      */
-    private static function addErrors(ValidationResult $result, array $errors, string $path = ''): void
+    private function addErrors(ValidationResult $result, array $errors, string $path = ''): void
     {
         foreach ($errors as $field => $error) {
             $oldPath = $path;
             $path .= ($path === '' ? '' : '.') . $field;
-            static::addSubErrors($result, $error, $path);
+            $this->addSubErrors($result, $error, $path);
             $path = $oldPath;
         }
     }
@@ -46,14 +48,16 @@ final class CakeValidationConverter
      * Add sub errors.
      *
      * @param ValidationResult $result The result
-     * @param array<mixed> $error The error
+     * @param array $error The error
      * @param string $path The path
+     *
+     * @return void
      */
-    private static function addSubErrors(ValidationResult $result, array $error, string $path = ''): void
+    private function addSubErrors(ValidationResult $result, array $error, string $path = ''): void
     {
         foreach ($error as $field2 => $errorMessage) {
             if (is_array($errorMessage)) {
-                static::addErrors($result, [$field2 => $errorMessage], $path);
+                $this->addErrors($result, [$field2 => $errorMessage], $path);
             } else {
                 $result->addError($path, $errorMessage);
             }
