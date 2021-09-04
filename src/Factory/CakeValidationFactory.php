@@ -3,7 +3,7 @@
 namespace Selective\Validation\Factory;
 
 use Cake\Validation\Validator;
-use Selective\Validation\Converter\CakeValidationValidationConverter;
+use Selective\Validation\Converter\CakeValidationConverter;
 use Selective\Validation\ValidationResult;
 
 /**
@@ -30,6 +30,6 @@ final class CakeValidationFactory
      */
     public function createValidationResult(array $errors): ValidationResult
     {
-        return (new CakeValidationValidationConverter())->createValidationResult($errors);
+        return (new CakeValidationConverter())->createValidationResult($errors);
     }
 }

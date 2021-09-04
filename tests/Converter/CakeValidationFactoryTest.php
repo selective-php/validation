@@ -3,7 +3,7 @@
 namespace Selective\Validation\Test\Converter;
 
 use PHPUnit\Framework\TestCase;
-use Selective\Validation\Converter\CakeValidationValidationConverter;
+use Selective\Validation\Converter\CakeValidationConverter;
 use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Selective\Validation\ValidationResult;
 
@@ -31,7 +31,7 @@ class CakeValidationFactoryTest extends TestCase
      */
     public function testCreateResultFromErrorsSimple()
     {
-        $result = (new CakeValidationValidationConverter())->createValidationResult([
+        $result = (new CakeValidationConverter())->createValidationResult([
             'first_name' => [
                 '_empty' => 'This field cannot be left empty',
             ],
@@ -104,7 +104,7 @@ class CakeValidationFactoryTest extends TestCase
      */
     public function testCreateResultFromErrorsNestedArray()
     {
-        $result = (new CakeValidationValidationConverter())->createValidationResult([
+        $result = (new CakeValidationConverter())->createValidationResult([
             'bills' => [
                 0 => [
                     'billing_number' => [

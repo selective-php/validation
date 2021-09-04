@@ -7,7 +7,7 @@ use Selective\Validation\ValidationResult;
 /**
  * CakePHP validation error convert.
  */
-final class CakeValidationValidationConverter implements ValidationConverterInterface
+final class CakeValidationConverter implements ValidationConverterInterface
 {
     /**
      * Create validation result from array with errors.
