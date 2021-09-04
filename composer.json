@@ -26,8 +26,7 @@
         "phpunit/phpunit": "^8 || ^9",
         "relay/relay": "^2.0",
         "slim/psr7": "^1",
-        "squizlabs/php_codesniffer": "^3.5",
-        "symfony/validator": "^5.1"
+        "squizlabs/php_codesniffer": "^3.5"
     },
     "scripts": {
         "check": [
