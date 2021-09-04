@@ -8,6 +8,8 @@ use Selective\Validation\ValidationResult;
 
 /**
  * Cake Validation factory.
+ *
+ * @deprecated
  */
 final class CakeValidationFactory
 {
@@ -30,6 +32,6 @@ final class CakeValidationFactory
      */
     public function createValidationResult(array $errors): ValidationResult
     {
-        return CakeValidationConverter::createValidationResult($errors);
+        return (new CakeValidationConverter())->createValidationResult($errors);
     }
 }
