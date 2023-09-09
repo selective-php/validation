@@ -1,7 +1,8 @@
 {
     "name": "selective/validation",
-    "type": "library",
     "description": "Validation error collector and transformer",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "validation",
         "middleware",
@@ -9,9 +10,8 @@
         "slim4",
         "psr15"
     ],
-    "license": "MIT",
     "require": {
-        "php": "^7.2 || ^8.0",
+        "php": "^8.1",
         "ext-json": "*",
         "psr/http-factory": "^1.0.1",
         "psr/http-server-middleware": "^1.0.1"
@@ -21,16 +21,13 @@
         "fig/http-message-util": "^1.1",
         "friendsofphp/php-cs-fixer": "^3",
         "nyholm/psr7": "^1.4",
-        "overtrue/phplint": "^1.1",
         "phpstan/phpstan": "^1",
-        "phpunit/phpunit": "^8 || ^9",
+        "phpunit/phpunit": "^10",
         "relay/relay": "^2.0",
         "slim/psr7": "^1",
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3"
     },
-    "config": {
-        "sort-packages": true
-    },
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Selective\\Validation\\": "src/"
@@ -41,21 +38,27 @@
             "Selective\\Validation\\Test\\": "tests/"
         }
     },
-    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true
+    },
     "scripts": {
-        "cs:check": "php-cs-fixer fix --dry-run --format=txt --verbose --diff --config=.cs.php",
-        "cs:fix": "php-cs-fixer fix --config=.cs.php",
-        "lint": "phplint ./ --exclude=vendor --no-interaction --no-cache",
-        "phpstan": "phpstan analyse src --level=max -c phpstan.neon --no-progress --ansi",
+        "cs:check": [
+            "@putenv PHP_CS_FIXER_IGNORE_ENV=1",
+            "php-cs-fixer fix --dry-run --format=txt --verbose --diff --config=.cs.php --ansi"
+        ],
+        "cs:fix": [
+            "@putenv PHP_CS_FIXER_IGNORE_ENV=1",
+            "php-cs-fixer fix --config=.cs.php --ansi --verbose"
+        ],
         "sniffer:check": "phpcs --standard=phpcs.xml",
         "sniffer:fix": "phpcbf --standard=phpcs.xml",
-        "test": "phpunit --configuration phpunit.xml --do-not-cache-result",
+        "stan": "phpstan analyse -c phpstan.neon --no-progress --ansi",
+        "test": "phpunit --configuration phpunit.xml --do-not-cache-result --colors=always",
         "test:all": [
-            "@lint",
             "@cs:check",
             "@sniffer:check",
-            "@phpstan",
-            "@test:coverage"
+            "@stan",
+            "@test"
         ],
         "test:coverage": "php -d xdebug.mode=coverage -r \"require 'vendor/bin/phpunit';\" -- --configuration phpunit.xml --do-not-cache-result --colors=always --coverage-clover build/logs/clover.xml --coverage-html build/coverage"
     }

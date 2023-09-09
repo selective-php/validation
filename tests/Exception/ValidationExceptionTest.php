@@ -21,7 +21,7 @@ class ValidationExceptionTest extends TestCase
         $service = new TestService();
         $result = $service->process(1);
 
-        $this->assertSame('{"success":true}', (json_encode($result)));
+        $this->assertSame('{"success":true}', json_encode($result));
     }
 
     /**

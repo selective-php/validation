@@ -25,7 +25,7 @@ the [notification pattern](https://martinfowler.com/articles/replaceThrowWithNot
 
 ## Requirements
 
-* PHP 7.2+ or 8.0+
+* PHP 8.1+
 
 ## Installation
 
