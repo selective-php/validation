@@ -17,7 +17,7 @@ class CakeValidationFactoryTest extends TestCase
      *
      * @param ValidationResult $validationResult The result
      *
-     * @return array The array
+     * @return array<string> The array
      */
     private function getValidationResultAsArray(ValidationResult $validationResult): array
     {
