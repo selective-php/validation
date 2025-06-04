@@ -34,7 +34,7 @@ final class ErrorDetailsResultTransformer implements ResultTransformerInterface
      *
      * @return array The transformed result
      */
-    public function transform(ValidationResult $validationResult, ValidationException $exception = null): array
+    public function transform(ValidationResult $validationResult, ?ValidationException $exception = null): array
     {
         $error = [];
 

@@ -74,7 +74,7 @@ final class ValidationResult
      * The message SHOULD be limited to a concise single sentence
      * @param string|null $code A numeric or alphanumeric value that indicates the error type that occurred. (optional)
      */
-    public function addError(string $field, string $message, string $code = null): void
+    public function addError(string $field, string $message, ?string $code = null): void
     {
         $error = new ValidationError($message);
         $error->setField($field)->setCode($code);
