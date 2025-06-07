@@ -24,7 +24,7 @@ final class CakeValidationFactory
     /**
      * Create validation result from array with errors.
      *
-     * @param array $errors The errors
+     * @param array<mixed> $errors The errors
      *
      * @return ValidationResult The result
      */

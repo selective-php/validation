@@ -12,7 +12,7 @@ final class CakeValidationConverter implements ValidationConverterInterface
     /**
      * Create validation result from array with errors.
      *
-     * @param array $errors The validation errors
+     * @param array<mixed> $errors The validation errors
      *
      * @return ValidationResult The result
      */
@@ -29,7 +29,7 @@ final class CakeValidationConverter implements ValidationConverterInterface
      * Add errors.
      *
      * @param ValidationResult $result The result
-     * @param array $errors The errors
+     * @param array<mixed> $errors The errors
      * @param string $path The path
      *
      * @return void
@@ -48,7 +48,7 @@ final class CakeValidationConverter implements ValidationConverterInterface
      * Add sub errors.
      *
      * @param ValidationResult $result The result
-     * @param array $error The error
+     * @param array<mixed> $error The error
      * @param string $path The path
      *
      * @return void

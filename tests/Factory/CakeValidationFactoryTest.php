@@ -2,6 +2,7 @@
 
 namespace Selective\Validation\Test\Factory;
 
+use Cake\Validation\Validator;
 use PHPUnit\Framework\TestCase;
 use Selective\Validation\Factory\CakeValidationFactory;
 use Selective\Validation\ValidationError;
@@ -18,9 +19,9 @@ class CakeValidationFactoryTest extends TestCase
      */
     public function testCreateValidator()
     {
-        (new CakeValidationFactory())->createValidator();
+        $validator = (new CakeValidationFactory())->createValidator();
 
-        $this->assertTrue(true);
+        $this->assertInstanceOf(Validator::class, $validator);
     }
 
     /**
@@ -111,7 +112,7 @@ class CakeValidationFactoryTest extends TestCase
      *
      * @param ValidationError $error The error
      *
-     * @return array Data
+     * @return array<string> Data
      */
     private function toArray(ValidationError $error): array
     {

@@ -17,7 +17,7 @@ class TestService
      *
      * @throws ValidationException
      *
-     * @return array Result data
+     * @return array<mixed> Result data
      */
     public function process(int $id): array
     {
