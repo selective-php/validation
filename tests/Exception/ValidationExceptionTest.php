@@ -2,15 +2,15 @@
 
 namespace Selective\Validation\Test\Exception;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Selective\Validation\Exception\ValidationException;
 use Selective\Validation\Test\TestService;
 
 /**
  * Tests.
- *
- * @coversDefaultClass \Selective\Validation\Exception\ValidationException
  */
+#[CoversClass(ValidationException::class)]
 class ValidationExceptionTest extends TestCase
 {
     /**

@@ -4,6 +4,7 @@ namespace Selective\Validation\Test\Middleware;
 
 use Fig\Http\Message\StatusCodeInterface;
 use Nyholm\Psr7\Factory\Psr17Factory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
@@ -11,9 +12,8 @@ use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 
 /**
  * Tests.
- *
- * @coversDefaultClass \Selective\Validation\Middleware\ValidationExceptionMiddleware
  */
+#[CoversClass(ValidationExceptionMiddleware::class)]
 class ValidationExceptionMiddlewareTest extends TestCase
 {
     use MiddlewareTestTrait;

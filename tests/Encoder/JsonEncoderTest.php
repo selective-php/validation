@@ -2,15 +2,15 @@
 
 namespace Selective\Validation\Test\Encoder;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Selective\Validation\Encoder\JsonEncoder;
 use UnexpectedValueException;
 
 /**
  * Tests.
- *
- * @coversDefaultClass \Selective\Validation\Encoder\JsonEncoder
  */
+#[CoversClass(JsonEncoder::class)]
 class JsonEncoderTest extends TestCase
 {
     /**

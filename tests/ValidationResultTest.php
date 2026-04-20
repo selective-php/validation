@@ -2,15 +2,15 @@
 
 namespace Selective\Validation\Test;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Selective\Validation\ValidationError;
 use Selective\Validation\ValidationResult;
 
 /**
  * ValidationResult tests.
- *
- * @coversDefaultClass \Selective\Validation\ValidationResult
  */
+#[CoversClass(ValidationResult::class)]
 class ValidationResultTest extends TestCase
 {
     /**

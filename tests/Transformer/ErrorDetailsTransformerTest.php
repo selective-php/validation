@@ -2,15 +2,15 @@
 
 namespace Selective\Validation\Test\Transformer;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Selective\Validation\ValidationResult;
 
 /**
  * Tests.
- *
- * @coversDefaultClass \Selective\Validation\Transformer\ErrorDetailsResultTransformer
  */
+#[CoversClass(ErrorDetailsResultTransformer::class)]
 class ErrorDetailsTransformerTest extends TestCase
 {
     /**
